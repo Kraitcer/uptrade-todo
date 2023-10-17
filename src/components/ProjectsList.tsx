@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { Flex, VStack } from "@chakra-ui/layout";
 import {
@@ -12,17 +12,6 @@ import {
   EditNotation as EditProject,
   Footer,
 } from "../utilities/uicomponents";
-// import useTodos, { Todo } from "../hooks/useTodos";
-// import axios from "axios";
-// import useOldTodos from "../hooks/useOldTodos";
-
-// export interface OldTodos {
-//   title: string;
-//   complited: boolean;
-//   id?: number;
-//   userId?: number;
-//   isEditing: boolean;
-// }
 
 interface Projects {
   id: string;
@@ -33,22 +22,7 @@ interface Projects {
 }
 
 const ProjectsList = () => {
-  // const { data: oldTodos } = useOldTodos();
-  // useEffect(() => {
-  //   setTodos(
-  //     oldTodos.map((arr: any) => ({
-  //       id: uuidv4(),
-  //       task: arr.title,
-  //       isEditing: false,
-  //       active: true,
-  //       complited: arr.complited,
-  //     }))
-  //   );
-  // }, []);
-  // const { data: oldTodos } = useTodos<Todo>([]);
   const [projects, setProjects] = useState<Projects[]>([]);
-
-  // console.log(todos);
 
   const [renderFilter, setRenderFilter] = useState("all");
 
@@ -59,7 +33,7 @@ const ProjectsList = () => {
       ? projects.filter((t) => t.active === true)
       : projects.filter((t) => t.complited === true);
 
-  // ========================================================EDIT=============================
+  // =================================EDIT=============================
 
   const editProject = (id: string, currentTaskName: string) => {
     setProjects(
@@ -70,7 +44,7 @@ const ProjectsList = () => {
       )
     );
   };
-  // ========================================================COMPLETE=============================
+  // ==============================COMPLETE=============================
   const completeProject = (id: string) => {
     setProjects(
       projects.map((project) =>
@@ -86,13 +60,13 @@ const ProjectsList = () => {
   };
   const completedTask = projects.filter((t: Projects) => t.complited == true);
 
-  // ========================================================DELETE=============================
+  // ==============================DELETE=============================
   const deleteProject = (id: string) => {
     const newProjects = projects.filter((project) => project.id !== id);
     setProjects(newProjects);
   };
 
-  // ========================================================ADD=============================
+  // ==============================ADD=============================
   const addProject = (project: any) => {
     setProjects([
       {
@@ -104,7 +78,6 @@ const ProjectsList = () => {
       },
       ...projects,
     ]);
-    // console.log(todos);
   };
 
   const activeTask = projects.filter((t: Projects) => t.active == true);

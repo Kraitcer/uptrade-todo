@@ -1,4 +1,3 @@
-import { useState } from "react";
 import ToDo from "./components/ProjectsList";
 import { Flex, Text } from "@chakra-ui/react";
 import "./App.css";
@@ -12,7 +11,7 @@ function App() {
       w={"100%"}
     >
       <Text fontSize={60} mb={2}>
-        Mindbox ToDoApp
+        Projects List
       </Text>
       <ToDo />
     </Flex>
