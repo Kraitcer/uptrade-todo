@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import { ChakraProvider } from "@chakra-ui/react";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -14,7 +16,9 @@ root.render(
     <ChakraProvider
     //  theme={theme}
     >
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
     </ChakraProvider>
   </React.StrictMode>
 );
