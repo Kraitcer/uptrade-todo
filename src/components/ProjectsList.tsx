@@ -16,15 +16,15 @@ import {
 // import axios from "axios";
 // import useOldTodos from "../hooks/useOldTodos";
 
-export interface OldTodos {
-  title: string;
-  complited: boolean;
-  id?: number;
-  userId?: number;
-  isEditing: boolean;
-}
+// export interface OldTodos {
+//   title: string;
+//   complited: boolean;
+//   id?: number;
+//   userId?: number;
+//   isEditing: boolean;
+// }
 
-interface todos {
+interface Projects {
   id: string;
   task: string;
   isEditing: boolean;
@@ -46,72 +46,76 @@ const ProjectsList = () => {
   //   );
   // }, []);
   // const { data: oldTodos } = useTodos<Todo>([]);
-  const [todos, setTodos] = useState<todos[]>([]);
+  const [projects, setProjects] = useState<Projects[]>([]);
 
   // console.log(todos);
 
   const [renderFilter, setRenderFilter] = useState("all");
 
-  const visibleTodos =
+  const visibleProjects =
     renderFilter === "all"
-      ? todos
+      ? projects
       : renderFilter === "active"
-      ? todos.filter((t) => t.active === true)
-      : todos.filter((t) => t.complited === true);
+      ? projects.filter((t) => t.active === true)
+      : projects.filter((t) => t.complited === true);
 
   // ========================================================EDIT=============================
 
-  const editTodo = (id: string, currentTaskName: string) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, isEditing: !todo.isEditing, task: currentTaskName }
-          : todo
+  const editProject = (id: string, currentTaskName: string) => {
+    setProjects(
+      projects.map((project) =>
+        project.id === id
+          ? { ...project, isEditing: !project.isEditing, task: currentTaskName }
+          : project
       )
     );
   };
   // ========================================================COMPLETE=============================
-  const completeTask = (id: string) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id
-          ? { ...todo, complited: !todo.complited, active: !todo.active }
-          : todo
+  const completeProject = (id: string) => {
+    setProjects(
+      projects.map((project) =>
+        project.id === id
+          ? {
+              ...project,
+              complited: !project.complited,
+              active: !project.active,
+            }
+          : project
       )
     );
   };
-  const completedTask = todos.filter((t: todos) => t.complited == true);
+  const completedTask = projects.filter((t: Projects) => t.complited == true);
 
   // ========================================================DELETE=============================
-  const deleteTask = (id: string) => {
-    const newTodos = todos.filter((todo) => todo.id !== id);
-    setTodos(newTodos);
+  const deleteProject = (id: string) => {
+    const newProjects = projects.filter((project) => project.id !== id);
+    setProjects(newProjects);
   };
 
   // ========================================================ADD=============================
-  const addTodo = (todo: any) => {
-    setTodos([
+  const addProject = (project: any) => {
+    setProjects([
       {
         id: uuidv4(),
-        task: todo,
+        task: project,
         isEditing: false,
         active: true,
         complited: false,
       },
-      ...todos,
+      ...projects,
     ]);
     // console.log(todos);
   };
 
-  const activeTask = todos.filter((t: todos) => t.active == true);
+  const activeTask = projects.filter((t: Projects) => t.active == true);
 
   return (
     <>
       <VStack gap={0}>
         <AddProject
-          addTodo={addTodo}
-          placeHolder="Choose New Task"
-          buttonName="Add Task"
+          addTodo={addProject}
+          placeHolder="Choose New Project"
+          buttonName="Add"
         />
         <Flex w={"560px"} h={"34rem"} mb={0}>
           <Flex
@@ -126,21 +130,21 @@ const ProjectsList = () => {
             pt={3}
             pb={2}
           >
-            {visibleTodos.map((todo, index) =>
-              todo.isEditing ? (
+            {visibleProjects.map((project, index) =>
+              project.isEditing ? (
                 <EditProject
                   key={index}
-                  subTasks={todo}
-                  editSubTask={(id: string, name: string) => editTodo(id, name)}
+                  notation={project}
+                  onEdit={(id: string, name: string) => editProject(id, name)}
                 />
               ) : (
                 <ProjectPad
                   width={"76%"}
-                  onDelete={deleteTask}
+                  onDelete={deleteProject}
                   key={index}
-                  task={todo}
-                  editTask={(id: string, name: string) => editTodo(id, name)}
-                  completeTask={(id: string) => completeTask(id)}
+                  task={project}
+                  onEdit={(id: string, name: string) => editProject(id, name)}
+                  onComplete={(id: string) => completeProject(id)}
                 />
               )
             )}
@@ -157,7 +161,7 @@ const ProjectsList = () => {
         >
           <Footer
             onClick={() => setRenderFilter("all")}
-            badge={todos.length}
+            badge={projects.length}
             icon={<AiOutlineUnorderedList size={22} />}
             name={"all"}
           />

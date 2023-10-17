@@ -3,18 +3,21 @@ import { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 
 interface Props {
-  subTasks: any;
-  editSubTask: (subTaskValue: any, id: string) => void;
+  notation: any;
+  onEdit: (subTaskValue: any, id: string) => void;
 }
 
-export const EditNotation = ({ subTasks, editSubTask }: Props) => {
-  const [value, setValue] = useState(subTasks.task);
+export const EditNotation = ({
+  notation: notation,
+  onEdit: editNotation,
+}: Props) => {
+  const [value, setValue] = useState(notation.task);
 
   const handleSubmit = (e: any) => {
     // prevent default action
     e.preventDefault();
     // edit todo
-    editSubTask(subTasks.id, value);
+    editNotation(notation.id, value);
   };
   return (
     <form onSubmit={handleSubmit} className="TodoForm">

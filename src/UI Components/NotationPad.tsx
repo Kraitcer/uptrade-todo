@@ -10,16 +10,16 @@ interface Props {
   width: string;
   task: any;
   onDelete: (id: string) => void;
-  editTask: (id: string, name: string) => void;
-  completeTask: (id: string) => void;
+  onEdit: (id: string, name: string) => void;
+  onComplete: (id: string) => void;
   // children: number;
 }
 
 export const NotationPad = ({
   task,
   onDelete,
-  editTask,
-  completeTask,
+  onEdit: editNotation,
+  onComplete: completeNotation,
   width,
 }: Props) => {
   return (
@@ -63,11 +63,11 @@ export const NotationPad = ({
             _hover={{ bg: "orange.400" }}
             borderRightRadius={10}
           >
-            <BiEdit onClick={() => editTask(task.id, task.task)} />
+            <BiEdit onClick={() => editNotation(task.id, task.task)} />
             {task.complited ? (
-              <FaTrashRestoreAlt onClick={() => completeTask(task.id)} />
+              <FaTrashRestoreAlt onClick={() => completeNotation(task.id)} />
             ) : (
-              <MdDone onClick={() => completeTask(task.id)} />
+              <MdDone onClick={() => completeNotation(task.id)} />
             )}
             <IoTrashBinSharp onClick={() => onDelete(task.id)} />
           </Flex>
