@@ -8,7 +8,7 @@ interface Prop {
   buttonName: string;
 }
 
-export const AddTask = ({ addTodo, placeHolder, buttonName }: Prop) => {
+export const AddNotation = ({ addTodo, placeHolder, buttonName }: Prop) => {
   const [value, setValue] = useState("");
 
   const handleSubmit = (e: any) => {
@@ -37,4 +37,4 @@ export const AddTask = ({ addTodo, placeHolder, buttonName }: Prop) => {
   );
 };
 
-export default AddTask;
+export default AddNotation;

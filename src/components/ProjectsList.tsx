@@ -7,9 +7,9 @@ import {
   AiOutlineUnorderedList,
 } from "../utilities/icons";
 import {
-  AddTask,
-  TaskPad,
-  EditSubTask,
+  AddNotation as AddProject,
+  NotationPad as ProjectPad,
+  EditNotation as EditProject,
   Footer,
 } from "../utilities/uicomponents";
 // import useTodos, { Todo } from "../hooks/useTodos";
@@ -32,7 +32,7 @@ interface todos {
   complited: boolean;
 }
 
-const ToDoListSection = () => {
+const ProjectsList = () => {
   // const { data: oldTodos } = useOldTodos();
   // useEffect(() => {
   //   setTodos(
@@ -108,7 +108,7 @@ const ToDoListSection = () => {
   return (
     <>
       <VStack gap={0}>
-        <AddTask
+        <AddProject
           addTodo={addTodo}
           placeHolder="Choose New Task"
           buttonName="Add Task"
@@ -128,13 +128,13 @@ const ToDoListSection = () => {
           >
             {visibleTodos.map((todo, index) =>
               todo.isEditing ? (
-                <EditSubTask
+                <EditProject
                   key={index}
                   subTasks={todo}
                   editSubTask={(id: string, name: string) => editTodo(id, name)}
                 />
               ) : (
-                <TaskPad
+                <ProjectPad
                   width={"76%"}
                   onDelete={deleteTask}
                   key={index}
@@ -179,4 +179,4 @@ const ToDoListSection = () => {
   );
 };
 
-export default ToDoListSection;
+export default ProjectsList;

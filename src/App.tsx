@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ToDo from "./components/ToDoListSection";
+import ToDo from "./components/ProjectsList";
 import { Flex, Text } from "@chakra-ui/react";
 import "./App.css";
 

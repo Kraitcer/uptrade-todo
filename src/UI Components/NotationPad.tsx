@@ -15,7 +15,7 @@ interface Props {
   // children: number;
 }
 
-export const TaskPad = ({
+export const NotationPad = ({
   task,
   onDelete,
   editTask,
@@ -77,4 +77,4 @@ export const TaskPad = ({
   );
 };
 
-export default TaskPad;
+export default NotationPad;

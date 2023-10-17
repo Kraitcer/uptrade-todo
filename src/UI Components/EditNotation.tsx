@@ -7,7 +7,7 @@ interface Props {
   editSubTask: (subTaskValue: any, id: string) => void;
 }
 
-export const EditSubTask = ({ subTasks, editSubTask }: Props) => {
+export const EditNotation = ({ subTasks, editSubTask }: Props) => {
   const [value, setValue] = useState(subTasks.task);
 
   const handleSubmit = (e: any) => {
@@ -48,4 +48,4 @@ export const EditSubTask = ({ subTasks, editSubTask }: Props) => {
   );
 };
 
-export default EditSubTask;
+export default EditNotation;
