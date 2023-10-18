@@ -1,6 +1,6 @@
-import { useReducer, useState } from "react";
+import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { Flex, VStack } from "@chakra-ui/layout";
-import { projectsReducer } from "../store/projectsReducer2";
 import {
   MdDone,
   MdOutlineNotificationsActive,
@@ -22,7 +22,7 @@ export interface Projects {
 }
 
 const ProjectsList = () => {
-  const [projects, dispatch] = useReducer(projectsReducer, []);
+  const [projects, setProjects] = useState<Projects[]>([]);
 
   const [renderFilter, setRenderFilter] = useState("all");
 
@@ -36,26 +36,48 @@ const ProjectsList = () => {
   // =================================EDIT=============================
 
   const editProject = (id: string, currentTaskName: string) => {
-    dispatch({
-      type: "EDIT_PROJECT",
-      payload: { id: id, task: currentTaskName },
-    });
+    setProjects(
+      projects.map((project) =>
+        project.id === id
+          ? { ...project, isEditing: !project.isEditing, task: currentTaskName }
+          : project
+      )
+    );
   };
   // ==============================COMPLETE=============================
   const completeProject = (id: string) => {
-    dispatch({ type: "COMPLETE_PROJECT", payload: id });
+    setProjects(
+      projects.map((project) =>
+        project.id === id
+          ? {
+              ...project,
+              complited: !project.complited,
+              active: !project.active,
+            }
+          : project
+      )
+    );
   };
   const completedTask = projects.filter((t: Projects) => t.complited == true);
 
   // ==============================DELETE=============================
   const deleteProject = (id: string) => {
-    dispatch({ type: "DELETE_PROJECT", payload: id });
-    // const newProjects = projects.filter((project) => project.id !== id);
+    const newProjects = projects.filter((project) => project.id !== id);
+    setProjects(newProjects);
   };
 
   // ==============================ADD=============================
   const addProject = (project: any) => {
-    dispatch({ type: "ADD_PROJECT", payload: project });
+    setProjects([
+      {
+        id: uuidv4(),
+        task: project,
+        isEditing: false,
+        active: true,
+        complited: false,
+      },
+      ...projects,
+    ]);
   };
 
   const activeTask = projects.filter((t: Projects) => t.active == true);
