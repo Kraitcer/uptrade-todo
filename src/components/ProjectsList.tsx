@@ -1,5 +1,5 @@
 import { useReducer, useState } from "react";
-import { Flex, VStack } from "@chakra-ui/layout";
+import { Flex, VStack, Text } from "@chakra-ui/react";
 import { projectsReducer } from "../store/projectsReducer";
 import {
   MdDone,
@@ -62,8 +62,16 @@ const ProjectsList = () => {
   const activeTask = projects.filter((t: Projects) => t.active == true);
 
   return (
-    <>
-      <VStack gap={0}>
+    <Flex
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems={"center"}
+      w={"100%"}
+    >
+      <Text fontSize={60} mb={2}>
+        Projects List
+      </Text>
+      <VStack gap={0} mt={6}>
         <AddProject
           addTodo={addProject}
           placeHolder="Choose New Project"
@@ -131,7 +139,7 @@ const ProjectsList = () => {
           />
         </Flex>
       </VStack>
-    </>
+    </Flex>
   );
 };
 

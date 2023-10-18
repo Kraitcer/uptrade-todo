@@ -5,6 +5,7 @@ import {
   BiEdit,
   MdDone,
 } from "../utilities/icons";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   width: string;
@@ -22,6 +23,8 @@ export const NotationPad = ({
   onComplete: completeNotation,
   width,
 }: Props) => {
+  const navigate = useNavigate();
+
   return (
     <HStack gap={0} mr={0} mb={1} w={"100%"}>
       <Box
@@ -35,6 +38,8 @@ export const NotationPad = ({
         borderLeftRadius={10}
         justifyContent={"center"}
         alignItems={"center"}
+        cursor={"pointer"}
+        onClick={() => navigate("/projectstaskbord")}
         // flexDirection={"raw"}
       >
         <Flex>

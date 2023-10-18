@@ -1,14 +1,22 @@
-import { createStore, combineReducers } from "redux";
+// Импортируйте compose из Redux
+import { createStore, combineReducers, compose } from "redux";
 import { projectsReducer } from "./projectsReducer";
-// Подставьте правильный путь к вашему редьюсеру
 
+declare global {
+  interface Window {
+    __REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof import("redux").compose;
+  }
+}
 // Корневой редьюсер, если у вас больше одного редьюсера
 const rootReducer = combineReducers({
   projects: projectsReducer,
   // другие редьюсеры могут быть добавлены сюда
 });
 
-// Создание Redux store
-const store = createStore(rootReducer);
+// Подключение к расширению Redux DevTools
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+// Создание Redux store с поддержкой Redux DevTools
+const store = createStore(rootReducer, composeEnhancers());
 
 export default store;
