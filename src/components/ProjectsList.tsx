@@ -1,6 +1,6 @@
 import { useReducer, useState } from "react";
 import { Flex, VStack } from "@chakra-ui/layout";
-import { projectsReducer } from "../store/projectsReducer2";
+import { projectsReducer } from "../store/projectsReducer";
 import {
   MdDone,
   MdOutlineNotificationsActive,
@@ -22,7 +22,8 @@ export interface Projects {
 }
 
 const ProjectsList = () => {
-  const [projects, dispatch] = useReducer(projectsReducer, []);
+  // const [projects, dispatch] = useReducer(projectsReducer, []);
+  const [projects, dispatch] = useReducer(projectsReducer, [] as Projects[]);
 
   const [renderFilter, setRenderFilter] = useState("all");
 
@@ -54,8 +55,8 @@ const ProjectsList = () => {
   };
 
   // ==============================ADD=============================
-  const addProject = (project: any) => {
-    dispatch({ type: "ADD_PROJECT", payload: project });
+  const addProject = (project: string) => {
+    dispatch({ type: "ADD_PROJECT", payload: { task: project } });
   };
 
   const activeTask = projects.filter((t: Projects) => t.active == true);

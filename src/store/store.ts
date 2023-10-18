@@ -1,5 +1,5 @@
 import { createStore, combineReducers } from "redux";
-import { projectsReducer } from "./projectsReducer2";
+import { projectsReducer } from "./projectsReducer";
 // Подставьте правильный путь к вашему редьюсеру
 
 // Корневой редьюсер, если у вас больше одного редьюсера

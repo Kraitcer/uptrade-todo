@@ -1,6 +1,7 @@
 import { Input, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { SectionButton } from "../utilities/uicomponents";
+import { Projects } from "../components/ProjectsList";
 
 interface Prop {
   addTodo: (data: string) => void;
