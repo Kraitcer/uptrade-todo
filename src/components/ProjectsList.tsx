@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { Flex, VStack, Text } from "@chakra-ui/react";
 import { projectsReducer } from "../store/projectsReducer";
 import {
@@ -22,7 +22,6 @@ export interface Projects {
 }
 
 const ProjectsList = () => {
-  // const [projects, dispatch] = useReducer(projectsReducer, []);
   const [projects, dispatch] = useReducer(projectsReducer, [] as Projects[]);
 
   const [renderFilter, setRenderFilter] = useState("all");
@@ -61,6 +60,22 @@ const ProjectsList = () => {
 
   const activeTask = projects.filter((t: Projects) => t.active == true);
 
+  // ==============================LOCAL STORAGE=============================
+
+  useEffect(() => {
+    // const storedProjects = localStorage.getItem("projects");
+    if (projects.length > 0)
+      localStorage.setItem("projects", JSON.stringify(projects));
+  }, [projects]);
+
+  useEffect(() => {
+    const storedProjects = localStorage.getItem("projects");
+    if (storedProjects && storedProjects.length > 0) {
+      const parsedProjects = JSON.parse(storedProjects);
+      dispatch({ type: "SET_PROJECTS", payload: parsedProjects });
+    }
+  }, [dispatch]);
+  // ==============================RENDER FASE=============================
   return (
     <Flex
       flexDirection={"column"}

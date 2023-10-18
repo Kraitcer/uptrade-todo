@@ -5,7 +5,8 @@ type Action =
   | { type: "ADD_PROJECT"; payload: { task: string } }
   | { type: "EDIT_PROJECT"; payload: { id: string; task: string } }
   | { type: "COMPLETE_PROJECT"; payload: string }
-  | { type: "DELETE_PROJECT"; payload: string };
+  | { type: "DELETE_PROJECT"; payload: string }
+  | { type: "SET_PROJECTS"; payload: Projects[] };
 
 export const projectsReducer = (
   state: Projects[] = [],
@@ -48,7 +49,8 @@ export const projectsReducer = (
 
     case "DELETE_PROJECT":
       return state.filter((project) => project.id !== action.payload);
-
+    case "SET_PROJECTS":
+      return [...action.payload];
     default:
       return state;
   }
