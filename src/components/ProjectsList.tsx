@@ -63,7 +63,6 @@ const ProjectsList = () => {
   // ==============================LOCAL STORAGE=============================
 
   useEffect(() => {
-    // const storedProjects = localStorage.getItem("projects");
     if (projects.length > 0)
       localStorage.setItem("projects", JSON.stringify(projects));
   }, [projects]);
