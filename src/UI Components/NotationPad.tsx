@@ -4,6 +4,7 @@ import {
   IoTrashBinSharp,
   BiEdit,
   MdDone,
+  MdDragIndicator,
 } from "../utilities/icons";
 import { useNavigate } from "react-router-dom";
 
@@ -27,6 +28,20 @@ export const NotationPad = ({
 
   return (
     <HStack gap={0} mr={0} mb={1} w={"100%"}>
+      <Flex
+        bg={"orange.300"}
+        h={10}
+        w={"36px"}
+        gap={2}
+        color={"white"}
+        _hover={{ bg: "orange.400" }}
+        borderLeftRadius={10}
+        justifyContent={"center"}
+        alignItems={"center"}
+        cursor={"-webkit-grab"}
+      >
+        <MdDragIndicator size={"20px"} />
+      </Flex>
       <Box
         bg={"blue.400"}
         color={"white"}
@@ -35,7 +50,6 @@ export const NotationPad = ({
         p={1.5}
         pl={3}
         pr={2}
-        borderLeftRadius={10}
         justifyContent={"center"}
         alignItems={"center"}
         cursor={"pointer"}

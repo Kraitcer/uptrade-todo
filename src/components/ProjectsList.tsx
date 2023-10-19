@@ -113,7 +113,7 @@ const ProjectsList = () => {
                 />
               ) : (
                 <ProjectPad
-                  width={"76%"}
+                  width={"72%"}
                   onDelete={deleteProject}
                   key={index}
                   task={project}
