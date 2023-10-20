@@ -21,8 +21,9 @@ export const EditNotation = ({
   };
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
-      <Flex w={"88%"}>
+      <Flex w={"98%"}>
         <Input
+          m={0}
           bg={"white"}
           value={value}
           onChange={(e) => setValue(e.target.value)}
@@ -32,9 +33,11 @@ export const EditNotation = ({
         <Flex
           bg={"orange.300"}
           h={10}
-          w={"75px"}
-          pt={2}
-          pl={4}
+          w={"45px"}
+          justifyContent={"center"}
+          alignItems={"center"}
+          // pt={2}
+          // pl={4}
           // pr={3}
           gap={2}
           color={"white"}

@@ -74,7 +74,15 @@ const ProjectsList = () => {
       dispatch({ type: "SET_PROJECTS", payload: parsedProjects });
     }
   }, [dispatch]);
-  // ==============================RENDER FASE=============================
+
+  // ==============================PROJECTS MOOVING ITEMS=====================
+  const moveItem = (fromIndex: number, toIndex: number) => {
+    const updatedList = [...projects];
+    const [movedItem] = updatedList.splice(fromIndex, 1);
+    updatedList.splice(toIndex, 0, movedItem);
+    dispatch({ type: "SET_PROJECTS", payload: updatedList });
+  };
+  // ==============================RENDER FASE===============================
   return (
     <Flex
       flexDirection={"column"}
@@ -113,9 +121,11 @@ const ProjectsList = () => {
                 />
               ) : (
                 <ProjectPad
-                  width={"72%"}
+                  width={"73%"}
                   onDelete={deleteProject}
-                  key={index}
+                  key={project.id}
+                  index={index}
+                  moveItem={moveItem}
                   task={project}
                   onEdit={(id: string, name: string) => editProject(id, name)}
                   onComplete={(id: string) => completeProject(id)}
@@ -124,6 +134,7 @@ const ProjectsList = () => {
             )}
           </Flex>
         </Flex>
+
         <Flex
           bg={"blue.400"}
           w={"100%"}
