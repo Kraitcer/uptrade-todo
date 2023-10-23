@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { Flex, VStack, Text } from "@chakra-ui/react";
+import { Flex, VStack, Text, Heading } from "@chakra-ui/react";
 import { projectsReducer } from "../store/projectsReducer";
 import {
   MdDone,
@@ -90,9 +90,17 @@ const ProjectsList = () => {
       alignItems={"center"}
       w={"100%"}
     >
-      <Text fontSize={60} mb={2}>
-        Projects List
-      </Text>
+      <Heading
+        fontSize={{ base: "4xl", sm: "5xl", md: "6xl" }}
+        fontWeight="bold"
+        textAlign="center"
+        textTransform={"uppercase"}
+        bgGradient="linear(to-l, #7928CA, #FF0080)"
+        bgClip="text"
+        mt={4}
+      >
+        Projects
+      </Heading>
       <VStack gap={0} mt={6}>
         <AddProject
           addTodo={addProject}

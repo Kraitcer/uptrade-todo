@@ -75,7 +75,7 @@ export const NotationPad = ({
         justifyContent={"center"}
         alignItems={"center"}
         cursor={"pointer"}
-        onClick={() => navigate("/projectstaskbord")}
+        onClick={() => navigate("/projectstaskbord", { state: task })}
         // flexDirection={"raw"}
       >
         <Flex>
