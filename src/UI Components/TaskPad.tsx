@@ -23,10 +23,10 @@ interface Prop {
 
 const TaskPad = ({ children }: Prop) => {
   return (
-    <HStack gap={0} mr={0} mb={1} w={"100%"}>
+    <HStack gap={0} mr={0} mb={1} w={"100%"} h={16}>
       <Flex
         bg={"orange.300"}
-        h={10}
+        h={"100%"}
         w={"36px"}
         gap={2}
         color={"white"}
@@ -39,10 +39,10 @@ const TaskPad = ({ children }: Prop) => {
         <MdDragIndicator size={"20px"} />
       </Flex>
       <Box
+        h={"100%"}
         bg={"blue.400"}
         color={"white"}
         w={"100%"}
-        h={10}
         p={1.5}
         pl={3}
         pr={2}
@@ -64,11 +64,10 @@ const TaskPad = ({ children }: Prop) => {
           </Text>
         </Flex>
       </Box>
-      <Flex>
+      <Flex h={"100%"}>
         <Flex>
           <Flex
             bg={"orange.300"}
-            h={10}
             w={"70px"}
             pt={3}
             pl={3}
