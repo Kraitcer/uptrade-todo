@@ -23,7 +23,7 @@ interface Prop {
 
 const TaskPad = ({ children }: Prop) => {
   return (
-    <HStack gap={0} mr={0} mb={1} w={"100%"} h={16}>
+    <HStack gap={0} mr={0} h={16}>
       <Flex
         bg={"orange.300"}
         h={"100%"}
@@ -52,7 +52,7 @@ const TaskPad = ({ children }: Prop) => {
         // onClick={() => navigate("/projectstaskbord", { state: task })}
         // flexDirection={"raw"}
       >
-        <Flex>
+        <Flex w={"404px"}>
           <Text
             // as={task.complited === true ? "del" : undefined}
             m={0}

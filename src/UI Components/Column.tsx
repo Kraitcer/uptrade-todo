@@ -1,27 +1,27 @@
-import {
-  Container,
-  Flex,
-  Heading,
-  SimpleGrid,
-  VStack,
-  Text,
-  Button,
-  Badge,
-} from "@chakra-ui/react";
-import { Tasks } from "../components/ProjectsTasks";
+import { Flex, Text, Button, Badge } from "@chakra-ui/react";
+
 import TaskPad from "./TaskPad";
+import { tasksReducer } from "../store/tasksReducer";
+import { useReducer } from "react";
 
 interface ColumnProps {
-  columntName: string;
+  currentProjectID: string;
+  columntName: "queue" | "development" | "done";
   columntColor: string;
-  tasks: Tasks[];
 }
 
-const Column = ({ columntName, columntColor, tasks }: ColumnProps) => {
+const Column = ({
+  currentProjectID,
+  columntName,
+  columntColor,
+}: ColumnProps) => {
+  const [tasksStore, dispatch] = useReducer(tasksReducer, []);
+
   return (
     <Flex
       w={"560px"}
-      //   h={"12rem"}
+      h={{ base: "160px", md: "auto" }}
+      overflowY={"auto"}
       borderRadius={20}
       bg={columntColor}
       flexDirection={"column"}
@@ -33,17 +33,32 @@ const Column = ({ columntName, columntColor, tasks }: ColumnProps) => {
         <Badge borderRadius={50} p={1}>
           <Text mx={2}>{columntName}</Text>
         </Badge>
-        <Button borderRadius={50} h={4} w={"100%"}>
+        <Button
+          borderRadius={50}
+          h={4}
+          w={"100%"}
+          onClick={() =>
+            dispatch({
+              type: "ADD_TASK",
+              payload: {
+                taskName: `New ${columntName} task`,
+                currentProjectID: currentProjectID,
+                status: columntName,
+              },
+            })
+          }
+        >
           +
         </Button>
       </Flex>
       <Flex
-        w={"100%"}
+        overflowY={"auto"}
+        w={"530px"}
         h={"100%"}
         flexDirection={{ base: "row", md: "column" }}
         gap={3}
       >
-        {tasks.map((task, index) => (
+        {tasksStore.map((task, index) => (
           <TaskPad key={index}>{task.taskName}</TaskPad>
         ))}
       </Flex>

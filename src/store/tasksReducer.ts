@@ -1,6 +1,7 @@
 import { Projects } from "../components/ProjectsList";
 import { Tasks } from "../components/ProjectsTasks";
 import { v4 } from "uuid";
+import { TasksStatus } from "../components/ProjectsTasks";
 
 type TaskAction =
   | {
@@ -16,7 +17,7 @@ type TaskAction =
 // | { type: "COMPLETE_TASK"; payload: string }
 // | { type: "SET_TASK"; payload: Projects[] };
 
-export const projectsReducer = (
+export const tasksReducer = (
   state: Tasks[] = [],
   action: TaskAction
 ): Tasks[] => {

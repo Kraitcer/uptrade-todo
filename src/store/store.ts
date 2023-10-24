@@ -1,6 +1,7 @@
 // Импортируйте compose из Redux
 import { createStore, combineReducers, compose } from "redux";
 import { projectsReducer } from "./projectsReducer";
+import { tasksReducer } from "./tasksReducer";
 
 declare global {
   interface Window {
@@ -10,6 +11,7 @@ declare global {
 // Корневой редьюсер, если у вас больше одного редьюсера
 const rootReducer = combineReducers({
   projects: projectsReducer,
+  tasks: tasksReducer,
   // другие редьюсеры могут быть добавлены сюда
 });
 
