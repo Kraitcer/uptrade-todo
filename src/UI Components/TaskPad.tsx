@@ -16,12 +16,16 @@ import {
   MdDone,
   MdDragIndicator,
 } from "../utilities/icons";
+import { Tasks } from "../components/ProjectsTasks";
 
 interface Prop {
+  task: Tasks;
   children: React.ReactNode;
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
 
-const TaskPad = ({ children }: Prop) => {
+const TaskPad = ({ children, onDelete, onEdit, task }: Prop) => {
   return (
     <HStack gap={0} mr={0} h={16}>
       <Flex
@@ -77,8 +81,8 @@ const TaskPad = ({ children }: Prop) => {
             _hover={{ bg: "orange.400" }}
             borderRightRadius={10}
           >
-            <BiEdit />
-            <IoTrashBinSharp />
+            <BiEdit onClick={() => onEdit(task.id)} />
+            <IoTrashBinSharp onClick={() => onDelete(task.id)} />
           </Flex>
         </Flex>
       </Flex>
