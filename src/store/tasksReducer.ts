@@ -7,8 +7,10 @@ type TaskAction =
   | {
       type: "ADD_TASK";
       payload: {
+        id: string;
         taskName: string;
         currentProjectID: string;
+        description: string;
         status: "queue" | "development" | "done";
       };
     }
@@ -24,13 +26,14 @@ export const tasksReducer = (
   switch (action.type) {
     case "ADD_TASK":
       return [
+        ...state,
         {
-          id: v4(),
+          id: action.payload.id,
           taskName: action.payload.taskName,
           currentProjectID: action.payload.currentProjectID,
           status: action.payload.status,
+          description: action.payload.description,
         },
-        ...state,
       ];
     case "DELETE_TASK":
       return state.filter((task) => task.id !== action.payload);
