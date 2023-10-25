@@ -1,31 +1,16 @@
-import {
-  Container,
-  Flex,
-  Heading,
-  SimpleGrid,
-  VStack,
-  Text,
-  Button,
-  Box,
-  HStack,
-} from "@chakra-ui/react";
-import {
-  FaTrashRestoreAlt,
-  IoTrashBinSharp,
-  BiEdit,
-  MdDone,
-  MdDragIndicator,
-} from "../utilities/icons";
+import { Flex, Text, Box, HStack } from "@chakra-ui/react";
+import { IoTrashBinSharp, BiEdit, MdDragIndicator } from "../utilities/icons";
 import { Tasks } from "../components/ProjectsTasks";
 
 interface Prop {
   task: Tasks;
   children: React.ReactNode;
   onDelete: (id: string) => void;
+
   onEdit: (id: string) => void;
 }
 
-const TaskPad = ({ children, onDelete, onEdit, task }: Prop) => {
+const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
   return (
     <HStack gap={0} mr={0} h={16}>
       <Flex

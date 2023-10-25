@@ -6,9 +6,9 @@ interface Props {
 }
 
 const EditTask = ({ taskID }: Props) => {
-  const [tasksStore, dispatch] = useReducer(tasksReducer, []);
+  // const [tasksStore, dispatch] = useReducer(tasksReducer, []);
 
-  const currentTask = tasksStore.filter((task) => task.id === taskID);
+  // const currentTask = tasksStore.filter((task) => task.id === taskID);
   //   console.log("currentTask", tasksStore);
 
   return <div>EditTask</div>;

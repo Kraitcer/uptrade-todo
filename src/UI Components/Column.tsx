@@ -1,11 +1,6 @@
 import { Flex, Text, Button, Badge } from "@chakra-ui/react";
-import { v4 } from "uuid";
 
 import TaskPad from "./TaskPad";
-import { tasksReducer } from "../store/tasksReducer";
-import { useReducer, useState } from "react";
-import AllModal from "../components/AllModal";
-import EditTask from "./EditTask";
 import { Tasks } from "../components/ProjectsTasks";
 
 interface ColumnProps {
@@ -14,6 +9,8 @@ interface ColumnProps {
   columntName: "queue" | "development" | "done";
   columntColor: string;
   addTask: () => void;
+  onDelete: (id: string) => void;
+  onEdit: (id: string) => void;
 }
 
 const Column = ({
@@ -22,38 +19,11 @@ const Column = ({
   columntName,
   columntColor,
   addTask,
+  onDelete,
+  onEdit,
 }: ColumnProps) => {
-  const [tasksStore, dispatch] = useReducer(tasksReducer, []);
-  // ==============================MODAL=============================
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [currentTaskID, setCurrentTaskID] = useState("");
-  //   console.log(tasksStore);
-
-  const openModal = (id: string) => {
-    setCurrentTaskID(id);
-    setIsOpen1(true);
-  };
-
-  // ==============================DELETE=============================
-
-  const onDelete = (id: string) => {
-    dispatch({
-      type: "DELETE_TASK",
-      payload: id,
-    });
-  };
-
-  // ==============================RENDER FASE===============================
   return (
     <>
-      <AllModal
-        // size={"20px"}
-        size={"xl"}
-        title={"FETUS Index"}
-        onOpen={isOpen1}
-        onClose={() => setIsOpen1(false)}
-        children={<EditTask taskID={currentTaskID} />}
-      />
       <Flex
         w={"560px"}
         h={{ base: "160px", md: "auto" }}
@@ -84,7 +54,7 @@ const Column = ({
             <TaskPad
               task={task}
               onDelete={() => onDelete(task.id)}
-              onEdit={(id) => openModal(id)}
+              onEdit={(id) => onEdit(id)}
               key={index}
             >
               {task.taskName}
