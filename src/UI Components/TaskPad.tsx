@@ -39,11 +39,9 @@ const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
         alignItems={"center"}
         cursor={"pointer"}
         // onClick={() => navigate("/projectstaskbord", { state: task })}
-        // flexDirection={"raw"}
       >
         <Flex w={"404px"}>
           <Text
-            // as={task.complited === true ? "del" : undefined}
             m={0}
             textOverflow={"ellipsis"}
             whiteSpace={"nowrap"}

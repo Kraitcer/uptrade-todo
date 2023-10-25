@@ -3,7 +3,7 @@ import { Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
 import Column from "../UI Components/Column";
 import AllModal from "./AllModal";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { tasksReducer } from "../store/tasksReducer";
 import { v4 } from "uuid";
 import EditTask from "../UI Components/EditTask";
@@ -47,12 +47,27 @@ const ProjectsTasks = () => {
   };
   // ==============================DELETE=============================
   const onDelete = (id: string) => {
-    // console.log("onDelete in TaskPad", id);
     dispatch({
       type: "DELETE_TASK",
       payload: id,
     });
   };
+
+  // ==============================LOCAL STORAGE=============================
+
+  useEffect(() => {
+    if (tasksStore.length > 0)
+      localStorage.setItem("tasks", JSON.stringify(tasksStore));
+  }, [tasksStore]);
+
+  useEffect(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    if (storedTasks && storedTasks.length > 0) {
+      const parsedTasks = JSON.parse(storedTasks);
+      dispatch({ type: "SET_TASKS", payload: parsedTasks });
+    }
+  }, [dispatch]);
+  // ==============================RENDER FASE===============================
 
   return (
     <>

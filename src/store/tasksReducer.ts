@@ -14,10 +14,10 @@ type TaskAction =
         status: "queue" | "development" | "done";
       };
     }
-  | { type: "DELETE_TASK"; payload: string };
-// | { type: "EDIT_TASK"; payload: { id: string; taskName: string } }
-// | { type: "COMPLETE_TASK"; payload: string }
-// | { type: "SET_TASK"; payload: Projects[] };
+  | { type: "DELETE_TASK"; payload: string }
+  // | { type: "EDIT_TASK"; payload: { id: string; taskName: string } }
+  // | { type: "COMPLETE_TASK"; payload: string }
+  | { type: "SET_TASKS"; payload: Tasks[] };
 
 export const tasksReducer = (
   state: Tasks[] = [],
@@ -58,8 +58,8 @@ export const tasksReducer = (
     //         }
     //       : project
     //   );
-    // case "SET_TASK":
-    //   return [...action.payload];
+    case "SET_TASKS":
+      return [...action.payload];
     default:
       return state;
   }
