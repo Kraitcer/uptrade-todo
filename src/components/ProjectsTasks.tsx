@@ -23,6 +23,8 @@ const ProjectsTasks = () => {
   let { state: currentProject } = useLocation();
   const [tasksStore, dispatch] = useReducer(tasksReducer, []);
 
+  console.log(tasksStore);
+
   // ==============================TASK FILTER=============================
   const tasksOfTheCurrentProject = tasksStore.filter(
     (task) => task.currentProjectID === currentProject.id

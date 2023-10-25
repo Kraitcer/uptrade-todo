@@ -66,7 +66,6 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
             status
           </Text>
           <Select
-            placeholder="Select option"
             value={status}
             onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
               setStatus(e.target.value as "queue" | "development" | "done")
