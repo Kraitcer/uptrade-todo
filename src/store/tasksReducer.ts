@@ -1,7 +1,4 @@
-import { Projects } from "../components/ProjectsList";
 import { Tasks } from "../components/ProjectsTasks";
-import { v4 } from "uuid";
-import { TasksStatus } from "../components/ProjectsTasks";
 
 type TaskAction =
   | {
@@ -15,7 +12,15 @@ type TaskAction =
       };
     }
   | { type: "DELETE_TASK"; payload: string }
-  // | { type: "EDIT_TASK"; payload: { id: string; taskName: string } }
+  | {
+      type: "EDIT_TASK";
+      payload: {
+        id: string;
+        taskName: string;
+        description: string;
+        status: "queue" | "development" | "done";
+      };
+    }
   // | { type: "COMPLETE_TASK"; payload: string }
   | { type: "SET_TASKS"; payload: Tasks[] };
 
@@ -37,16 +42,17 @@ export const tasksReducer = (
       ];
     case "DELETE_TASK":
       return state.filter((task) => task.id !== action.payload);
-    // case "EDIT_TASK":
-    //   return state.map((task) =>
-    //     task.id === action.payload.id
-    //       ? {
-    //           ...task,
-    //           isEditing: !project.isEditing,
-    //           task: action.payload.task,
-    //         }
-    //       : project
-    //   );
+    case "EDIT_TASK":
+      return state.map((task) =>
+        task.id === action.payload.id
+          ? {
+              ...task,
+              taskName: action.payload.taskName,
+              status: action.payload.status,
+              description: action.payload.description,
+            }
+          : task
+      );
 
     // case "COMPLETE_TASK":
     //   return state.map((project) =>

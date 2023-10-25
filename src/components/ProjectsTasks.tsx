@@ -23,12 +23,18 @@ const ProjectsTasks = () => {
   let { state: currentProject } = useLocation();
   const [tasksStore, dispatch] = useReducer(tasksReducer, []);
 
+  // ==============================TASK FILTER=============================
+  const tasksOfTheCurrentProject = tasksStore.filter(
+    (task) => task.currentProjectID === currentProject.id
+  );
+
   // ==============================MODAL=============================
   const [isOpen1, setIsOpen1] = useState(false);
-  const [currentTaskID, setCurrentTaskID] = useState("");
+  const [currentTask, setCurrentTask] = useState({} as Tasks);
 
   const openModal = (id: string) => {
-    setCurrentTaskID(id);
+    const currentTask = tasksStore.filter((task) => task.id === id);
+    setCurrentTask(currentTask[0]);
     setIsOpen1(true);
   };
 
@@ -53,7 +59,25 @@ const ProjectsTasks = () => {
     });
   };
 
-  // ==============================LOCAL STORAGE=============================
+  // ==============================EDIT================================
+  const onEdit = (
+    id: string,
+    taskName: string,
+    description: string,
+    status: "queue" | "development" | "done"
+  ) => {
+    dispatch({
+      type: "EDIT_TASK",
+      payload: {
+        id: id,
+        taskName: taskName,
+        status: status,
+        description: description,
+      },
+    });
+  };
+
+  // ==========================LOCAL STORAGE===========================
 
   useEffect(() => {
     if (tasksStore.length > 0)
@@ -73,10 +97,18 @@ const ProjectsTasks = () => {
     <>
       <AllModal
         size={"xl"}
-        title={"FETUS Index"}
+        title={"Edit task"}
         onOpen={isOpen1}
         onClose={() => setIsOpen1(false)}
-        children={<EditTask taskID={currentTaskID} />}
+        children={
+          <EditTask
+            submit={() => setIsOpen1(false)}
+            currentTask={currentTask}
+            onEdit={(id, title, description, status) =>
+              onEdit(id, title, description, status)
+            }
+          />
+        }
       />
       <VStack justifyContent={"center"} alignItems={"center"}>
         <Heading
@@ -95,7 +127,9 @@ const ProjectsTasks = () => {
             <Column
               onEdit={(id) => openModal(id)}
               onDelete={(id) => onDelete(id)}
-              tasks={tasksStore.filter((task) => task.status === "queue")}
+              tasks={tasksOfTheCurrentProject.filter(
+                (task) => task.status === "queue"
+              )}
               addTask={() => addTask("queue")}
               currentProjectID={currentProject.id}
               columntName={"queue"}
@@ -104,7 +138,9 @@ const ProjectsTasks = () => {
             <Column
               onEdit={(id) => openModal(id)}
               onDelete={(id) => onDelete(id)}
-              tasks={tasksStore.filter((task) => task.status === "development")}
+              tasks={tasksOfTheCurrentProject.filter(
+                (task) => task.status === "development"
+              )}
               addTask={() => addTask("development")}
               currentProjectID={currentProject.id}
               columntName={"development"}
@@ -114,7 +150,9 @@ const ProjectsTasks = () => {
               onEdit={(id) => openModal(id)}
               onDelete={(id) => onDelete(id)}
               addTask={() => addTask("done")}
-              tasks={tasksStore.filter((task) => task.status === "done")}
+              tasks={tasksOfTheCurrentProject.filter(
+                (task) => task.status === "done"
+              )}
               currentProjectID={currentProject.id}
               columntName={"done"}
               columntColor={"pink.200"}
