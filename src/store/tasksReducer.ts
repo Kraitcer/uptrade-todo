@@ -1,4 +1,4 @@
-import { Tasks } from "../components/ProjectsTasks";
+import { Tasks } from "../components/Tasks";
 
 type TaskAction =
   | {

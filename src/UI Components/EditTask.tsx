@@ -9,7 +9,7 @@ import {
   Select,
 } from "@chakra-ui/react";
 
-import { Tasks } from "../components/ProjectsTasks";
+import { Tasks } from "../components/Tasks";
 
 interface Props {
   submit: () => void;

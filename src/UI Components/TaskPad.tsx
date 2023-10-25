@@ -1,6 +1,6 @@
 import { Flex, Text, Box, HStack } from "@chakra-ui/react";
 import { IoTrashBinSharp, BiEdit, MdDragIndicator } from "../utilities/icons";
-import { Tasks } from "../components/ProjectsTasks";
+import { Tasks } from "../components/Tasks";
 
 interface Prop {
   task: Tasks;

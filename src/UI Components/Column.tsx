@@ -1,7 +1,7 @@
 import { Flex, Text, Button, Badge } from "@chakra-ui/react";
 
 import TaskPad from "./TaskPad";
-import { Tasks } from "../components/ProjectsTasks";
+import { Tasks } from "../components/Tasks";
 
 interface ColumnProps {
   tasks: Tasks[];
