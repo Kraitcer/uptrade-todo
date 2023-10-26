@@ -1,6 +1,12 @@
-import { Flex, Text, Box, HStack } from "@chakra-ui/react";
-import { IoTrashBinSharp, BiEdit, MdDragIndicator } from "../utilities/icons";
+import { Flex, Text, Box, HStack, VStack, Badge } from "@chakra-ui/react";
+import {
+  IoTrashBinSharp,
+  BiEdit,
+  MdDragIndicator,
+  GiSandsOfTime,
+} from "../utilities/icons";
 import { Tasks } from "../components/Tasks";
+import { DateTime } from "luxon";
 
 interface Prop {
   task: Tasks;
@@ -11,6 +17,9 @@ interface Prop {
 }
 
 const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
+  const timeLeft = task.dueDate?.diff(task.creationDate, "days").days;
+  console.log(timeLeft);
+
   return (
     <HStack gap={0} mr={0} h={16}>
       <Flex
@@ -41,14 +50,22 @@ const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
         // onClick={() => navigate("/projectstaskbord", { state: task })}
       >
         <Flex w={"404px"}>
-          <Text
-            m={0}
-            textOverflow={"ellipsis"}
-            whiteSpace={"nowrap"}
-            overflow={"hidden"}
-          >
-            {children}
-          </Text>
+          <Flex w={"100%"} flexDirection={"column"} gap={2}>
+            <Text
+              m={0}
+              textOverflow={"ellipsis"}
+              whiteSpace={"nowrap"}
+              overflow={"hidden"}
+            >
+              {children}
+            </Text>
+            <Flex gap={1} flexDirection={"row-reverse"} alignItems={"center"}>
+              <Badge>
+                {/* {task.dueDate && task.dueDate?.toFormat("yyyy-MM-dd")} */}
+              </Badge>
+              <GiSandsOfTime />
+            </Flex>
+          </Flex>
         </Flex>
       </Box>
       <Flex h={"100%"}>
@@ -56,13 +73,13 @@ const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
           <Flex
             bg={"orange.300"}
             w={"70px"}
-            pt={3}
+            // pt={3}
             pl={3}
-            pr={3}
             gap={2}
             color={"white"}
             _hover={{ bg: "orange.400" }}
             borderRightRadius={10}
+            alignItems={"center"}
           >
             <BiEdit onClick={() => onEdit(task.id)} />
             <IoTrashBinSharp onClick={() => onDelete(task.id)} />

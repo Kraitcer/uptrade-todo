@@ -7,3 +7,4 @@ export {
   MdOutlineNotificationsActive,
   MdDragIndicator,
 } from "react-icons/md";
+export { GiSandsOfTime } from "react-icons/gi";
