@@ -10,7 +10,6 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import router from "./routes";
 
 import reportWebVitals from "./reportWebVitals";
-import TestDnDComponent from "./components/TestDnDComponent";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

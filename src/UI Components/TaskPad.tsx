@@ -17,8 +17,8 @@ interface Prop {
 }
 
 const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
-  const timeLeft = task.dueDate?.diff(task.creationDate, "days").days;
-  console.log(timeLeft);
+  //   const timeLeft = task.dueDate?.diff(task.creationDate, "days").toObject();
+  //   console.log(timeLeft);
 
   return (
     <HStack gap={0} mr={0} h={16}>
