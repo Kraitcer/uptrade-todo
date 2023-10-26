@@ -12,7 +12,7 @@ type TaskAction =
         status: "queue" | "development" | "done";
         creationDate: DateTime;
         timeSpent: string;
-        dueDate: DateTime;
+        dueDate?: DateTime;
       };
     }
   | { type: "DELETE_TASK"; payload: string }
@@ -23,7 +23,7 @@ type TaskAction =
         taskName: string;
         description: string;
         status: "queue" | "development" | "done";
-        dueDate: DateTime;
+        dueDate?: DateTime;
       };
     }
   // | { type: "COMPLETE_TASK"; payload: string }
@@ -62,17 +62,6 @@ export const tasksReducer = (
             }
           : task
       );
-
-    // case "COMPLETE_TASK":
-    //   return state.map((project) =>
-    //     project.id === action.payload
-    //       ? {
-    //           ...project,
-    //           complited: !project.complited,
-    //           active: !project.active,
-    //         }
-    //       : project
-    //   );
     case "SET_TASKS":
       return [...action.payload];
     default:

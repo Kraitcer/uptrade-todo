@@ -20,7 +20,8 @@ export interface Tasks {
   description: string;
   creationDate: DateTime;
   timeSpent: string;
-  dueDate: DateTime;
+  dueDate?: DateTime;
+  // dueDate: DateTime;
 }
 
 const ProjectsTasks = () => {
@@ -56,7 +57,7 @@ const ProjectsTasks = () => {
         description: "",
         creationDate: DateTime.now(),
         timeSpent: "",
-        dueDate: DateTime.now(),
+        dueDate: undefined,
       },
     });
   };
@@ -74,7 +75,7 @@ const ProjectsTasks = () => {
     taskName: string,
     description: string,
     status: "queue" | "development" | "done",
-    dueDate: DateTime
+    dueDate?: DateTime
   ) => {
     dispatch({
       type: "EDIT_TASK",

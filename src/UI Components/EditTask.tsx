@@ -21,7 +21,7 @@ interface Props {
     taskName: string,
     description: string,
     status: "queue" | "development" | "done",
-    dueDate: DateTime
+    dueDate?: DateTime
   ) => void;
 }
 
@@ -30,9 +30,6 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
   const [description, setDescription] = useState(currentTask.description);
   const [status, setStatus] = useState(currentTask.status);
   const [dueDate, setDueDate] = useState(currentTask.dueDate);
-  // console.log("creationDate", currentTask.creationDate);
-  // console.log("dueDate", currentTask.dueDate?.toFormat("yyyy-MM-dd"));
-  // console.log(DateTime.fromFormat(dueDate, "string"));
   const handleSubmit = (e: any) => {
     e.preventDefault();
     onEdit(currentTask.id, title, description, status, dueDate);
@@ -96,7 +93,7 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
           <Input
             type="date"
             w={400}
-            value={dueDate.toFormat("yyyy-MM-dd")}
+            value={dueDate ? dueDate.toFormat("yyyy-MM-dd") : ""}
             onChange={(e) => setDueDate(DateTime.fromISO(e.target.value))}
           />
         </Flex>
