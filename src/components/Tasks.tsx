@@ -1,4 +1,5 @@
 import { Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 import { useLocation } from "react-router-dom";
 import Column from "../UI Components/Column";
@@ -17,13 +18,16 @@ export interface Tasks {
   currentProjectID: string;
   status: "queue" | "development" | "done";
   description: string;
+  creationDate: DateTime;
+  timeSpent: string;
+  dueDate: DateTime;
 }
 
 const ProjectsTasks = () => {
   let { state: currentProject } = useLocation();
   const [tasksStore, dispatch] = useReducer(tasksReducer, []);
 
-  console.log(tasksStore);
+  // console.log(tasksStore);
 
   // ==============================TASK FILTER=============================
   const tasksOfTheCurrentProject = tasksStore.filter(
@@ -50,6 +54,9 @@ const ProjectsTasks = () => {
         currentProjectID: currentProject.id,
         status: status,
         description: "",
+        creationDate: DateTime.now(),
+        timeSpent: "",
+        dueDate: DateTime.now(),
       },
     });
   };
@@ -66,7 +73,8 @@ const ProjectsTasks = () => {
     id: string,
     taskName: string,
     description: string,
-    status: "queue" | "development" | "done"
+    status: "queue" | "development" | "done",
+    dueDate: DateTime
   ) => {
     dispatch({
       type: "EDIT_TASK",
@@ -75,6 +83,7 @@ const ProjectsTasks = () => {
         taskName: taskName,
         status: status,
         description: description,
+        dueDate: dueDate,
       },
     });
   };
@@ -106,8 +115,8 @@ const ProjectsTasks = () => {
           <EditTask
             submit={() => setIsOpen1(false)}
             currentTask={currentTask}
-            onEdit={(id, title, description, status) =>
-              onEdit(id, title, description, status)
+            onEdit={(id, title, description, status, dueDate) =>
+              onEdit(id, title, description, status, dueDate)
             }
           />
         }

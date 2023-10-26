@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import { Tasks } from "../components/Tasks";
 
 type TaskAction =
@@ -9,6 +10,9 @@ type TaskAction =
         currentProjectID: string;
         description: string;
         status: "queue" | "development" | "done";
+        creationDate: DateTime;
+        timeSpent: string;
+        dueDate: DateTime;
       };
     }
   | { type: "DELETE_TASK"; payload: string }
@@ -19,6 +23,7 @@ type TaskAction =
         taskName: string;
         description: string;
         status: "queue" | "development" | "done";
+        dueDate: DateTime;
       };
     }
   // | { type: "COMPLETE_TASK"; payload: string }
@@ -38,6 +43,9 @@ export const tasksReducer = (
           currentProjectID: action.payload.currentProjectID,
           status: action.payload.status,
           description: action.payload.description,
+          creationDate: action.payload.creationDate,
+          timeSpent: action.payload.timeSpent,
+          dueDate: action.payload.dueDate,
         },
       ];
     case "DELETE_TASK":
@@ -50,6 +58,7 @@ export const tasksReducer = (
               taskName: action.payload.taskName,
               status: action.payload.status,
               description: action.payload.description,
+              dueDate: action.payload.dueDate,
             }
           : task
       );
