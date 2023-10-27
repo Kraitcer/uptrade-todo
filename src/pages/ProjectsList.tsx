@@ -11,7 +11,7 @@ import {
   NotationPad as ProjectPad,
   EditNotation as EditProject,
   Footer,
-} from "../utilities/childrenComponents";
+} from "../components/componentsList";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export interface Projects {

@@ -1,6 +1,6 @@
 import { Input, Flex } from "@chakra-ui/react";
 import { useState } from "react";
-import { SectionButton } from "../utilities/childrenComponents";
+import { SectionButton } from "./componentsList";
 import { Projects } from "../pages/ProjectsList";
 
 interface Prop {

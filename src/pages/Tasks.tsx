@@ -1,13 +1,12 @@
 import { Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-
+import { v4 } from "uuid";
 import { useLocation } from "react-router-dom";
+import { useReducer, useState } from "react";
 import Column from "../components/Column";
 import AllModal from "../components/AllModal";
-import { useReducer, useState } from "react";
-import { tasksReducer } from "../store/tasksReducer";
-import { v4 } from "uuid";
 import EditTask from "../components/EditTask";
+import { tasksReducer } from "../store/tasksReducer";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export interface TasksStatus {

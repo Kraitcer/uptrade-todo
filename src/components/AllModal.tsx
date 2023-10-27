@@ -6,7 +6,6 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
-import { useState } from "react";
 interface CustomModalProps {
   title: string;
   children: React.ReactNode;
@@ -14,7 +13,7 @@ interface CustomModalProps {
   onClose: () => void;
   size: string;
 }
-export default function AllModal({
+function AllModal({
   title,
   children,
   onOpen,
@@ -36,3 +35,4 @@ export default function AllModal({
     </>
   );
 }
+export default AllModal;
