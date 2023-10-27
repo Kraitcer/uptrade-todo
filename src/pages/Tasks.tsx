@@ -8,6 +8,7 @@ import { useEffect, useReducer, useState } from "react";
 import { tasksReducer } from "../store/tasksReducer";
 import { v4 } from "uuid";
 import EditTask from "../components/EditTask";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export interface TasksStatus {
   status: "queue" | "development" | "done";
@@ -90,19 +91,8 @@ const ProjectsTasks = () => {
   };
 
   // ==========================LOCAL STORAGE===========================
+  useLocalStorage("tasks", tasksStore, dispatch);
 
-  useEffect(() => {
-    if (tasksStore.length > 0)
-      localStorage.setItem("tasks", JSON.stringify(tasksStore));
-  }, [tasksStore]);
-
-  useEffect(() => {
-    const storedTasks = localStorage.getItem("tasks");
-    if (storedTasks && storedTasks.length > 0) {
-      const parsedTasks = JSON.parse(storedTasks);
-      dispatch({ type: "SET_TASKS", payload: parsedTasks });
-    }
-  }, [dispatch]);
   // ==============================RENDER FASE===============================
 
   return (

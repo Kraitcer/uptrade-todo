@@ -11,7 +11,8 @@ import {
   NotationPad as ProjectPad,
   EditNotation as EditProject,
   Footer,
-} from "../utilities/uicomponents";
+} from "../utilities/childrenComponents";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export interface Projects {
   id: string;
@@ -62,18 +63,7 @@ const ProjectsList = () => {
 
   // ==============================LOCAL STORAGE=============================
 
-  useEffect(() => {
-    if (projects.length > 0)
-      localStorage.setItem("projects", JSON.stringify(projects));
-  }, [projects]);
-
-  useEffect(() => {
-    const storedProjects = localStorage.getItem("projects");
-    if (storedProjects && storedProjects.length > 0) {
-      const parsedProjects = JSON.parse(storedProjects);
-      dispatch({ type: "SET_PROJECTS", payload: parsedProjects });
-    }
-  }, [dispatch]);
+  useLocalStorage("projects", projects, dispatch);
 
   // ==============================PROJECTS MOOVING ITEMS=====================
   const moveItem = (fromIndex: number, toIndex: number) => {
