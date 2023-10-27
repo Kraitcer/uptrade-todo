@@ -4,7 +4,7 @@ import { DateTime } from "luxon";
 import { useLocation } from "react-router-dom";
 import Column from "../components/Column";
 import AllModal from "../components/AllModal";
-import { useEffect, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import { tasksReducer } from "../store/tasksReducer";
 import { v4 } from "uuid";
 import EditTask from "../components/EditTask";

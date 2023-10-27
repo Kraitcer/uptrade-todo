@@ -1,4 +1,4 @@
-import { Flex, Text, Box, HStack, VStack, Badge } from "@chakra-ui/react";
+import { Flex, Text, Box, HStack, Badge } from "@chakra-ui/react";
 import {
   IoTrashBinSharp,
   BiEdit,
@@ -6,7 +6,6 @@ import {
   GiSandsOfTime,
 } from "../utilities/icons";
 import { Tasks } from "../pages/Tasks";
-import { DateTime } from "luxon";
 
 interface Prop {
   task: Tasks;

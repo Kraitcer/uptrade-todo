@@ -15,7 +15,6 @@ interface ColumnProps {
 
 const Column = ({
   tasks,
-  currentProjectID,
   columntName,
   columntColor,
   addTask,

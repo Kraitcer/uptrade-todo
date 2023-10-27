@@ -1,15 +1,7 @@
-import React, { useReducer, useState } from "react";
-import {
-  Input,
-  Flex,
-  Text,
-  Textarea,
-  VStack,
-  Button,
-  Select,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Input, Flex, Text, Textarea, Button, Select } from "@chakra-ui/react";
 
-import { DateTime, Zone } from "luxon";
+import { DateTime } from "luxon";
 
 import { Tasks } from "../pages/Tasks";
 
