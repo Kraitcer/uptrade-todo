@@ -106,9 +106,7 @@ const ProjectsTasks = () => {
           <EditTask
             submit={() => setIsOpen1(false)}
             currentTask={currentTask}
-            onEdit={(id, title, description, status, dueDate) =>
-              onEdit(id, title, description, status, dueDate)
-            }
+            onEdit={onEdit}
           />
         }
       />
