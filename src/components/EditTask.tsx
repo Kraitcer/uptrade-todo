@@ -13,7 +13,7 @@ interface Props {
     taskName: string,
     description: string,
     status: TasksStatus["status"],
-    dueDate?: DateTime
+    dueDate?: string
   ) => void;
 }
 
@@ -22,7 +22,10 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
   const [description, setDescription] = useState(currentTask.description);
   const [status, setStatus] = useState(currentTask.status);
   const [dueDate, setDueDate] = useState(currentTask.dueDate);
-  const handleSubmit = (e: any) => {
+
+  const creationDate = DateTime.fromISO(currentTask.creationDate);
+  console.log(creationDate);
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onEdit(currentTask.id, title, description, status, dueDate);
     submit();
@@ -74,8 +77,8 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
             creation Date
           </Text>
           <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            {currentTask.creationDate.day}
-            {currentTask.creationDate.monthShort}
+            {creationDate.day}
+            {creationDate.monthShort}
           </Text>
         </Flex>
         <Flex gap={4} justifyContent={"space-between"}>
@@ -85,8 +88,8 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
           <Input
             type="date"
             w={400}
-            value={dueDate ? dueDate.toFormat("yyyy-MM-dd") : ""}
-            onChange={(e) => setDueDate(DateTime.fromISO(e.target.value))}
+            value={dueDate}
+            onChange={(e) => setDueDate(e.target.value)}
           />
         </Flex>
 

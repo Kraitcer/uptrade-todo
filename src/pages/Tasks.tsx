@@ -18,10 +18,9 @@ export interface Tasks {
   currentProjectID: string;
   status: TasksStatus["status"];
   description: string;
-  creationDate: DateTime;
+  creationDate: string;
   timeSpent: string;
-  dueDate?: DateTime;
-  // dueDate: DateTime;
+  dueDate?: string;
 }
 
 const ProjectsTasks = () => {
@@ -55,9 +54,9 @@ const ProjectsTasks = () => {
         currentProjectID: currentProject.id,
         status: status,
         description: "",
-        creationDate: DateTime.now(),
+        creationDate: DateTime.now().toFormat("yyyy-MM-dd"),
         timeSpent: "",
-        dueDate: undefined,
+        dueDate: "",
       },
     });
   };
@@ -75,7 +74,7 @@ const ProjectsTasks = () => {
     taskName: string,
     description: string,
     status: TasksStatus["status"],
-    dueDate?: DateTime
+    dueDate?: string
   ) => {
     dispatch({
       type: "EDIT_TASK",

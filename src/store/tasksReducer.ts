@@ -10,9 +10,9 @@ type TaskAction =
         currentProjectID: string;
         description: string;
         status: TasksStatus["status"];
-        creationDate: DateTime;
+        creationDate: string;
         timeSpent: string;
-        dueDate?: DateTime;
+        dueDate: string;
       };
     }
   | { type: "DELETE_TASK"; payload: string }
@@ -23,7 +23,7 @@ type TaskAction =
         taskName: string;
         description: string;
         status: TasksStatus["status"];
-        dueDate?: DateTime;
+        dueDate?: string;
       };
     }
   // | { type: "COMPLETE_TASK"; payload: string }
