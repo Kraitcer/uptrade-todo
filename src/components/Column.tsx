@@ -55,9 +55,7 @@ const Column = ({
               onDelete={() => onDelete(task.id)}
               onEdit={(id) => onEdit(id)}
               key={index}
-            >
-              {task.taskName}
-            </TaskPad>
+            />
           ))}
         </Flex>
       </Flex>

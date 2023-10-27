@@ -80,11 +80,11 @@ const ProjectsTasks = () => {
     dispatch({
       type: "EDIT_TASK",
       payload: {
-        id: id,
-        taskName: taskName,
-        status: status,
-        description: description,
-        dueDate: dueDate,
+        id,
+        taskName,
+        status,
+        description,
+        dueDate,
       },
     });
   };

@@ -9,13 +9,12 @@ import { Tasks } from "../pages/Tasks";
 
 interface Prop {
   task: Tasks;
-  children: React.ReactNode;
   onDelete: (id: string) => void;
 
   onEdit: (id: string) => void;
 }
 
-const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
+const TaskPad = ({ onEdit, onDelete, task }: Prop) => {
   //   const timeLeft = task.dueDate?.diff(task.creationDate, "days").toObject();
   //   console.log(timeLeft);
 
@@ -56,7 +55,7 @@ const TaskPad = ({ children, onEdit, onDelete, task }: Prop) => {
               whiteSpace={"nowrap"}
               overflow={"hidden"}
             >
-              {children}
+              {task.taskName}
             </Text>
             <Flex gap={1} flexDirection={"row-reverse"} alignItems={"center"}>
               <Badge>
