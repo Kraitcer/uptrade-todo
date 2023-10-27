@@ -17,7 +17,7 @@ export interface Tasks {
   id: string;
   taskName: string;
   currentProjectID: string;
-  status: "queue" | "development" | "done";
+  status: TasksStatus["status"];
   description: string;
   creationDate: DateTime;
   timeSpent: string;
@@ -47,7 +47,7 @@ const ProjectsTasks = () => {
   };
 
   // ==============================ADD=============================
-  const addTask = (status: "queue" | "development" | "done") => {
+  const addTask = (status: TasksStatus["status"]) => {
     dispatch({
       type: "ADD_TASK",
       payload: {
@@ -75,7 +75,7 @@ const ProjectsTasks = () => {
     id: string,
     taskName: string,
     description: string,
-    status: "queue" | "development" | "done",
+    status: TasksStatus["status"],
     dueDate?: DateTime
   ) => {
     dispatch({
@@ -91,6 +91,7 @@ const ProjectsTasks = () => {
   };
 
   // ==========================LOCAL STORAGE===========================
+
   useLocalStorage("tasks", tasksStore, dispatch);
 
   // ==============================RENDER FASE===============================

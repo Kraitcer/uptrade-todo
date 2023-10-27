@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { Tasks } from "../pages/Tasks";
+import { Tasks, TasksStatus } from "../pages/Tasks";
 
 type TaskAction =
   | {
@@ -9,7 +9,7 @@ type TaskAction =
         taskName: string;
         currentProjectID: string;
         description: string;
-        status: "queue" | "development" | "done";
+        status: TasksStatus["status"];
         creationDate: DateTime;
         timeSpent: string;
         dueDate?: DateTime;
@@ -22,7 +22,7 @@ type TaskAction =
         id: string;
         taskName: string;
         description: string;
-        status: "queue" | "development" | "done";
+        status: TasksStatus["status"];
         dueDate?: DateTime;
       };
     }

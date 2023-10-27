@@ -1,12 +1,12 @@
 import { Flex, Text, Button, Badge } from "@chakra-ui/react";
 
 import TaskPad from "./TaskPad";
-import { Tasks } from "../pages/Tasks";
+import { Tasks, TasksStatus } from "../pages/Tasks";
 
 interface ColumnProps {
   tasks: Tasks[];
   currentProjectID: string;
-  columntName: "queue" | "development" | "done";
+  columntName: TasksStatus["status"];
   columntColor: string;
   addTask: () => void;
   onDelete: (id: string) => void;

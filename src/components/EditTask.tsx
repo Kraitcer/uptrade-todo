@@ -3,7 +3,7 @@ import { Input, Flex, Text, Textarea, Button, Select } from "@chakra-ui/react";
 
 import { DateTime } from "luxon";
 
-import { Tasks } from "../pages/Tasks";
+import { Tasks, TasksStatus } from "../pages/Tasks";
 
 interface Props {
   submit: () => void;
@@ -12,7 +12,7 @@ interface Props {
     id: string,
     taskName: string,
     description: string,
-    status: "queue" | "development" | "done",
+    status: TasksStatus["status"],
     dueDate?: DateTime
   ) => void;
 }
