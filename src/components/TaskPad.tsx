@@ -5,7 +5,7 @@ import {
   MdDragIndicator,
   GiSandsOfTime,
 } from "../utilities/icons";
-import { Tasks } from "../components/Tasks";
+import { Tasks } from "../pages/Tasks";
 import { DateTime } from "luxon";
 
 interface Prop {

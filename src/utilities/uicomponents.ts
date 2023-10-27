@@ -1,5 +1,5 @@
-export { AddNotation } from "../UI Components/AddNotation";
-export { NotationPad } from "../UI Components/NotationPad";
-export { EditNotation } from "../UI Components/EditNotation";
-export { Footer } from "../UI Components/Footer";
-export { SectionButton } from "../UI Components/SectionButton";
+export { AddNotation } from "../components/AddNotation";
+export { NotationPad } from "../components/NotationPad";
+export { EditNotation } from "../components/EditNotation";
+export { Footer } from "../components/Footer";
+export { SectionButton } from "../components/SectionButton";

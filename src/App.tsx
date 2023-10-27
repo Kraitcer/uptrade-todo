@@ -1,4 +1,4 @@
-import ToDo from "./components/ProjectsList";
+import ToDo from "./pages/ProjectsList";
 import { Flex, Text } from "@chakra-ui/react";
 import "./App.css";
 

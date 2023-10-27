@@ -11,7 +11,7 @@ import {
 
 import { DateTime, Zone } from "luxon";
 
-import { Tasks } from "../components/Tasks";
+import { Tasks } from "../pages/Tasks";
 
 interface Props {
   submit: () => void;

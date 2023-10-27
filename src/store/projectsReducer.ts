@@ -1,4 +1,4 @@
-import { Projects } from "../components/ProjectsList";
+import { Projects } from "../pages/ProjectsList";
 import { v4 } from "uuid";
 
 type Action =

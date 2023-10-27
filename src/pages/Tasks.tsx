@@ -2,12 +2,12 @@ import { Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
 import { useLocation } from "react-router-dom";
-import Column from "../UI Components/Column";
-import AllModal from "./AllModal";
+import Column from "../components/Column";
+import AllModal from "../components/AllModal";
 import { useEffect, useReducer, useState } from "react";
 import { tasksReducer } from "../store/tasksReducer";
 import { v4 } from "uuid";
-import EditTask from "../UI Components/EditTask";
+import EditTask from "../components/EditTask";
 
 export interface TasksStatus {
   status: "queue" | "development" | "done";
