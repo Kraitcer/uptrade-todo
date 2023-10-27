@@ -6,6 +6,7 @@ import {
   GiSandsOfTime,
 } from "../utilities/icons";
 import { Tasks } from "../pages/Tasks";
+import { DateTime } from "luxon";
 
 interface Prop {
   task: Tasks;
@@ -15,9 +16,21 @@ interface Prop {
 }
 
 const TaskPad = ({ onEdit, onDelete, task }: Prop) => {
-  //   const timeLeft = task.dueDate?.diff(task.creationDate, "days").toObject();
-  //   console.log(timeLeft);
-
+  const dueDate = task.dueDate ? DateTime.fromISO(task.dueDate) : "";
+  const today = DateTime.now();
+  const timeLeft =
+    dueDate && dueDate?.diff(DateTime.fromISO(task.creationDate), "days").days;
+  // console.log(timeLeft);
+  let timeLeftBadge = "";
+  if (timeLeft === 0) {
+    timeLeftBadge = `Today`;
+  } else if (timeLeft === 1) {
+    timeLeftBadge = `${timeLeft} Day`;
+  } else if (typeof timeLeft === "number" && timeLeft > 1) {
+    timeLeftBadge = `${timeLeft} Days`;
+  } else if (dueDate && dueDate < today) {
+    timeLeftBadge = "depricated";
+  }
   return (
     <HStack gap={0} mr={0} h={16}>
       <Flex
@@ -58,10 +71,8 @@ const TaskPad = ({ onEdit, onDelete, task }: Prop) => {
               {task.taskName}
             </Text>
             <Flex gap={1} flexDirection={"row-reverse"} alignItems={"center"}>
-              <Badge>
-                {/* {task.dueDate && task.dueDate?.toFormat("yyyy-MM-dd")} */}
-              </Badge>
-              <GiSandsOfTime />
+              <Badge>{timeLeftBadge}</Badge>
+              {timeLeftBadge && <GiSandsOfTime />}
             </Flex>
           </Flex>
         </Flex>

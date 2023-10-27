@@ -24,7 +24,12 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
   const [dueDate, setDueDate] = useState(currentTask.dueDate);
 
   const creationDate = DateTime.fromISO(currentTask.creationDate);
-  console.log(creationDate);
+
+  const handleDateChange = (value: string) => {
+    if (DateTime.fromISO(value) < creationDate) return;
+    setDueDate(value);
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onEdit(currentTask.id, title, description, status, dueDate);
@@ -89,7 +94,7 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
             type="date"
             w={400}
             value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
+            onChange={(e) => handleDateChange(e.target.value)}
           />
         </Flex>
 
