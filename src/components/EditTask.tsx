@@ -1,5 +1,23 @@
 import React, { useState } from "react";
-import { Input, Flex, Text, Textarea, Button, Select } from "@chakra-ui/react";
+import {
+  Input,
+  Flex,
+  Text,
+  Textarea,
+  Button,
+  Select,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@chakra-ui/react";
+import {
+  AddNotation as AddSubTask,
+  NotationPad as ProjectPad,
+  EditNotation as EditProject,
+  Footer,
+} from "../components/componentsList";
 
 import { DateTime } from "luxon";
 
@@ -37,72 +55,95 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <Flex gap={2} flexDirection={"column"}>
-        <Flex gap={4}>
-          <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            Title
-          </Text>
-          <Input
-            m={0}
-            bg={"white"}
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </Flex>
-        <Flex gap={4}>
-          <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            description
-          </Text>
-          <Textarea
-            m={0}
-            bg={"white"}
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            resize={"none"}
-          />
-        </Flex>
-        <Flex gap={4}>
-          <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            status
-          </Text>
-          <Select
-            value={status}
-            onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-              setStatus(e.target.value as TasksStatus["status"])
-            }
-          >
-            <option value="queue">queue</option>
-            <option value="development">development</option>
-            <option value="done">done</option>
-          </Select>
-        </Flex>
-        <Flex gap={4} justifyContent={"space-between"}>
-          <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            creation Date
-          </Text>
-          <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            {creationDate.day}
-            {creationDate.monthShort}
-          </Text>
-        </Flex>
-        <Flex gap={4} justifyContent={"space-between"}>
-          <Text textTransform={"uppercase"} fontSize={"2xl"}>
-            Due Date
-          </Text>
-          <Input
-            type="date"
-            w={400}
-            value={dueDate}
-            onChange={(e) => handleDateChange(e.target.value)}
-          />
-        </Flex>
+    <>
+      <Tabs>
+        <TabList>
+          <Tab>Properties</Tab>
+          <Tab>SubTasks</Tab>
+          <Tab>Comments</Tab>
+        </TabList>
 
-        <Button bg={"blue.400"} color={"white"} onClick={handleSubmit}>
-          SUBMIT
-        </Button>
-      </Flex>
-    </form>
+        <TabPanels>
+          <TabPanel>
+            <form onSubmit={handleSubmit}>
+              <Flex gap={2} flexDirection={"column"}>
+                <Flex gap={4}>
+                  <Text textTransform={"uppercase"} fontSize={"2xl"}>
+                    Title
+                  </Text>
+                  <Input
+                    m={0}
+                    bg={"white"}
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
+                </Flex>
+                <Flex gap={4}>
+                  <Text textTransform={"uppercase"} fontSize={"2xl"}>
+                    description
+                  </Text>
+                  <Textarea
+                    m={0}
+                    bg={"white"}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    resize={"none"}
+                  />
+                </Flex>
+                <Flex gap={4}>
+                  <Text textTransform={"uppercase"} fontSize={"2xl"}>
+                    status
+                  </Text>
+                  <Select
+                    value={status}
+                    onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+                      setStatus(e.target.value as TasksStatus["status"])
+                    }
+                  >
+                    <option value="queue">queue</option>
+                    <option value="development">development</option>
+                    <option value="done">done</option>
+                  </Select>
+                </Flex>
+                <Flex gap={4} justifyContent={"space-between"}>
+                  <Text textTransform={"uppercase"} fontSize={"2xl"}>
+                    creation Date
+                  </Text>
+                  <Text textTransform={"uppercase"} fontSize={"2xl"}>
+                    {creationDate.day}
+                    {creationDate.monthShort}
+                  </Text>
+                </Flex>
+                <Flex gap={4} justifyContent={"space-between"}>
+                  <Text textTransform={"uppercase"} fontSize={"2xl"}>
+                    Due Date
+                  </Text>
+                  <Input
+                    type="date"
+                    w={300}
+                    value={dueDate}
+                    onChange={(e) => handleDateChange(e.target.value)}
+                  />
+                </Flex>
+              </Flex>
+            </form>
+          </TabPanel>
+          <TabPanel>
+            <AddSubTask
+              addTodo={() => {}}
+              placeHolder="Choose Sub Task"
+              buttonName="Add"
+            />
+          </TabPanel>
+          <TabPanel>
+            <p>three!</p>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
+      <Button w={"100%"} bg={"blue.400"} color={"white"} onClick={handleSubmit}>
+        SUBMIT
+      </Button>
+    </>
   );
 };
 

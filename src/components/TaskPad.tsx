@@ -18,19 +18,21 @@ interface Prop {
 const TaskPad = ({ onEdit, onDelete, task }: Prop) => {
   const dueDate = task.dueDate ? DateTime.fromISO(task.dueDate) : "";
   const today = DateTime.now();
-  const timeLeft =
-    dueDate && dueDate?.diff(DateTime.fromISO(task.creationDate), "days").days;
+  // console.log(today);
+  const timeLeft = dueDate && dueDate?.diff(today, "days").as("days");
+  const roundedTimeLeft = Math.floor(timeLeft ? timeLeft + 1 : NaN);
   // console.log(timeLeft);
   let timeLeftBadge = "";
-  if (timeLeft === 0) {
+  if (roundedTimeLeft === 0) {
     timeLeftBadge = `Today`;
-  } else if (timeLeft === 1) {
-    timeLeftBadge = `${timeLeft} Day`;
-  } else if (typeof timeLeft === "number" && timeLeft > 1) {
-    timeLeftBadge = `${timeLeft} Days`;
-  } else if (dueDate && dueDate < today) {
-    timeLeftBadge = "depricated";
+  } else if (roundedTimeLeft === 1) {
+    timeLeftBadge = `${roundedTimeLeft} Day`;
+  } else if (typeof roundedTimeLeft === "number" && roundedTimeLeft > 1) {
+    timeLeftBadge = `${roundedTimeLeft} Days`;
   }
+  // else if (dueDate && dueDate < today) {
+  //   timeLeftBadge = "depricated";
+  // }
   return (
     <HStack gap={0} mr={0} h={16}>
       <Flex

@@ -34,6 +34,16 @@ const ProjectsTasks = () => {
     (task) => task.currentProjectID === currentProject.id
   );
 
+  // ==============================COLUMNS=============================
+  const columnsArray: {
+    status: TasksStatus["status"];
+    columntColor: string;
+  }[] = [
+    { status: "queue", columntColor: "green.200" },
+    { status: "development", columntColor: "purple.200" },
+    { status: "done", columntColor: "pink.200" },
+  ];
+
   // ==============================MODAL=============================
   const [isOpen1, setIsOpen1] = useState(false);
   const [currentTask, setCurrentTask] = useState({} as Tasks);
@@ -123,39 +133,20 @@ const ProjectsTasks = () => {
         </Heading>
         <Flex bg={"blue.100"} borderRadius={20} p={4}>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, md: 4 }}>
-            <Column
-              onEdit={(id) => openModal(id)}
-              onDelete={(id) => onDelete(id)}
-              tasks={tasksOfTheCurrentProject.filter(
-                (task) => task.status === "queue"
-              )}
-              addTask={() => addTask("queue")}
-              currentProjectID={currentProject.id}
-              columntName={"queue"}
-              columntColor={"green.200"}
-            />
-            <Column
-              onEdit={(id) => openModal(id)}
-              onDelete={(id) => onDelete(id)}
-              tasks={tasksOfTheCurrentProject.filter(
-                (task) => task.status === "development"
-              )}
-              addTask={() => addTask("development")}
-              currentProjectID={currentProject.id}
-              columntName={"development"}
-              columntColor={"purple.200"}
-            />
-            <Column
-              onEdit={(id) => openModal(id)}
-              onDelete={(id) => onDelete(id)}
-              addTask={() => addTask("done")}
-              tasks={tasksOfTheCurrentProject.filter(
-                (task) => task.status === "done"
-              )}
-              currentProjectID={currentProject.id}
-              columntName={"done"}
-              columntColor={"pink.200"}
-            />
+            {columnsArray.map((column, index) => (
+              <Column
+                key={index}
+                onEdit={openModal}
+                onDelete={onDelete}
+                tasks={tasksOfTheCurrentProject.filter(
+                  (task) => task.status === column.status
+                )}
+                addTask={() => addTask(column.status)}
+                currentProjectID={currentProject.id}
+                columntName={column.status}
+                columntColor={column.columntColor}
+              />
+            ))}
           </SimpleGrid>
         </Flex>
       </VStack>

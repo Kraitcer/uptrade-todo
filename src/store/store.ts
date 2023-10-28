@@ -12,6 +12,7 @@ declare global {
 const rootReducer = combineReducers({
   projects: projectsReducer,
   tasks: tasksReducer,
+  subTasks: tasksReducer,
   // другие редьюсеры могут быть добавлены сюда
 });
 
