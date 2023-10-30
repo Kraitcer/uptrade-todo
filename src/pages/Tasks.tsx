@@ -2,12 +2,13 @@ import { Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { v4 } from "uuid";
 import { useLocation } from "react-router-dom";
-import { useReducer, useState } from "react";
+import { useEffect, useMemo, useReducer, useState } from "react";
 import Column from "../components/Column";
 import AllModal from "../components/AllModal";
 import EditTask from "../components/EditTask";
 import { tasksReducer } from "../store/tasksReducer";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import React from "react";
 
 export interface TasksStatus {
   status: "queue" | "development" | "done";
@@ -23,16 +24,26 @@ export interface Tasks {
   dueDate?: string;
 }
 
-const ProjectsTasks = () => {
+const ProjectsTasks = React.memo(() => {
   let { state: currentProject } = useLocation();
   const [tasksStore, dispatch] = useReducer(tasksReducer, []);
+  // const [today, setToday] = useState<DateTime>();
 
   // console.log(tasksStore);
 
-  // ==============================TASK FILTER=============================
+  // ==============================TODAY===============================
+  // useEffect(() => {
+  //   setToday(DateTime.now());
+  // }, [tasksStore]);
+
+  // ==============================TASK FILTER=========================
   const tasksOfTheCurrentProject = tasksStore.filter(
     (task) => task.currentProjectID === currentProject.id
   );
+
+  const taskStatusFilter = useMemo(() => {
+    tasksOfTheCurrentProject.filter((task) => task.status === status);
+  }, [tasksOfTheCurrentProject]);
 
   // ==============================COLUMNS=============================
   const columnsArray: {
@@ -56,6 +67,7 @@ const ProjectsTasks = () => {
 
   // ==============================ADD=============================
   const addTask = (status: TasksStatus["status"]) => {
+    // console.log(`task with ${status}`);
     dispatch({
       type: "ADD_TASK",
       payload: {
@@ -138,6 +150,7 @@ const ProjectsTasks = () => {
                 key={index}
                 onEdit={openModal}
                 onDelete={onDelete}
+                // today={today}
                 tasks={tasksOfTheCurrentProject.filter(
                   (task) => task.status === column.status
                 )}
@@ -152,6 +165,6 @@ const ProjectsTasks = () => {
       </VStack>
     </>
   );
-};
+});
 
 export default ProjectsTasks;

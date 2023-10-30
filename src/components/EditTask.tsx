@@ -35,7 +35,7 @@ interface Props {
   ) => void;
 }
 
-const EditTask = ({ currentTask, onEdit, submit }: Props) => {
+const EditTask = React.memo(({ currentTask, onEdit, submit }: Props) => {
   const [title, setTitle] = useState(currentTask.taskName);
   const [description, setDescription] = useState(currentTask.description);
   const [status, setStatus] = useState(currentTask.status);
@@ -145,6 +145,6 @@ const EditTask = ({ currentTask, onEdit, submit }: Props) => {
       </Button>
     </>
   );
-};
+});
 
 export default EditTask;

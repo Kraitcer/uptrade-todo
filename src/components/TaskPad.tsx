@@ -7,17 +7,31 @@ import {
 } from "../utilities/icons";
 import { Tasks } from "../pages/Tasks";
 import { DateTime } from "luxon";
+import { useEffect, useState } from "react";
+import React from "react";
 
 interface Prop {
+  // today?: DateTime;
   task: Tasks;
   onDelete: (id: string) => void;
 
   onEdit: (id: string) => void;
 }
 
-const TaskPad = ({ onEdit, onDelete, task }: Prop) => {
+const TaskPad = React.memo(({ onEdit, onDelete, task }: Prop) => {
+  let count = 0;
+  console.log(`render ${task.taskName}`);
+  const [today, setToday] = useState<DateTime>(DateTime.now());
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setToday(DateTime.now());
+  //   }, 1000);
+
+  //   return () => clearInterval(intervalId);
+  // }, [task]);
+
   const dueDate = task.dueDate ? DateTime.fromISO(task.dueDate) : "";
-  const today = DateTime.now();
+  // const today = DateTime.now();
   // console.log(today);
   const timeLeft = dueDate && dueDate?.diff(today, "days").as("days");
   const roundedTimeLeft = Math.floor(timeLeft ? timeLeft + 1 : NaN);
@@ -101,6 +115,6 @@ const TaskPad = ({ onEdit, onDelete, task }: Prop) => {
   );
 
   //   <div></div>;
-};
+});
 
 export default TaskPad;
