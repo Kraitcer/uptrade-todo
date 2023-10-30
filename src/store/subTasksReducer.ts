@@ -1,25 +1,29 @@
 import { Projects } from "../pages/ProjectsList";
 import { v4 } from "uuid";
+import { SubTasks } from "../pages/Tasks";
 
 type Action =
-  | { type: "ADD_SUBTASK"; payload: { task: string } }
-  | { type: "EDIT_SUBTASK"; payload: { id: string; task: string } }
+  | {
+      type: "ADD_SUBTASK";
+      payload: { subTaskName: string; currentTaskID: string };
+    }
+  | { type: "EDIT_SUBTASK"; payload: { id: string; subTaskName: string } }
   | { type: "COMPLETE_SUBTASK"; payload: string }
   | { type: "DELETE_SUBTASK"; payload: string }
-  | { type: "SET_SUBTASK"; payload: Projects[] };
+  | { type: "SET_SUBTASK"; payload: SubTasks[] };
 
 export const projectsReducer = (
-  state: Projects[] = [],
+  state: SubTasks[] = [],
   action: Action
-): Projects[] => {
+): SubTasks[] => {
   switch (action.type) {
     case "ADD_SUBTASK":
       return [
         {
           id: v4(),
-          task: action.payload.task,
+          subTaskName: action.payload.subTaskName,
+          currentTaskID: action.payload.currentTaskID,
           isEditing: false,
-          active: true,
           complited: false,
         },
         ...state,
@@ -31,24 +35,23 @@ export const projectsReducer = (
           ? {
               ...project,
               isEditing: !project.isEditing,
-              task: action.payload.task,
+              subTaskName: action.payload.subTaskName,
             }
           : project
       );
 
     case "COMPLETE_SUBTASK":
-      return state.map((project) =>
-        project.id === action.payload
+      return state.map((subTask) =>
+        subTask.id === action.payload
           ? {
-              ...project,
-              complited: !project.complited,
-              active: !project.active,
+              ...subTask,
+              complited: !subTask.complited,
             }
-          : project
+          : subTask
       );
 
     case "DELETE_SUBTASK":
-      return state.filter((project) => project.id !== action.payload);
+      return state.filter((subTask) => subTask.id !== action.payload);
     case "SET_SUBTASK":
       return [...action.payload];
     default:

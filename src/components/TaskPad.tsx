@@ -19,16 +19,14 @@ interface Prop {
 }
 
 const TaskPad = React.memo(({ onEdit, onDelete, task }: Prop) => {
-  let count = 0;
-  console.log(`render ${task.taskName}`);
   const [today, setToday] = useState<DateTime>(DateTime.now());
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     setToday(DateTime.now());
-  //   }, 1000);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setToday(DateTime.now());
+    }, 1000 * 24);
 
-  //   return () => clearInterval(intervalId);
-  // }, [task]);
+    return () => clearInterval(intervalId);
+  }, [task]);
 
   const dueDate = task.dueDate ? DateTime.fromISO(task.dueDate) : "";
   // const today = DateTime.now();

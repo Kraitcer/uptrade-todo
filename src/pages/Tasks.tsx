@@ -23,6 +23,13 @@ export interface Tasks {
   timeSpent: string;
   dueDate?: string;
 }
+export interface SubTasks {
+  id: string;
+  subTaskName: string;
+  currentTaskID: string;
+  isEditing: boolean;
+  complited: boolean;
+}
 
 const ProjectsTasks = React.memo(() => {
   let { state: currentProject } = useLocation();
@@ -40,10 +47,6 @@ const ProjectsTasks = React.memo(() => {
   const tasksOfTheCurrentProject = tasksStore.filter(
     (task) => task.currentProjectID === currentProject.id
   );
-
-  const taskStatusFilter = useMemo(() => {
-    tasksOfTheCurrentProject.filter((task) => task.status === status);
-  }, [tasksOfTheCurrentProject]);
 
   // ==============================COLUMNS=============================
   const columnsArray: {
