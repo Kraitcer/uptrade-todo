@@ -6,7 +6,21 @@ import { useEffect, useMemo, useReducer, useState } from "react";
 import Column from "../components/Column";
 import AllModal from "../components/AllModal";
 import EditTask from "../components/EditTask";
-import { tasksReducer } from "../store/tasksReducer";
+import {
+  tasksReducer,
+  addTask,
+  editTask,
+  deleteTask,
+  setTask,
+  selectAllTasks,
+  selectTasksOfTheCurrentProject,
+  selectQueueTasks,
+  selectDevelopmentTasks,
+  selectDoneTasks,
+} from "../store/tasksReducer";
+import store from "../store/store";
+import { useSelector } from "react-redux";
+
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import React from "react";
 
@@ -33,29 +47,29 @@ export interface SubTasks {
 
 const ProjectsTasks = React.memo(() => {
   let { state: currentProject } = useLocation();
-  const [tasksStore, dispatch] = useReducer(tasksReducer, []);
-  // const [today, setToday] = useState<DateTime>();
-
-  // console.log(tasksStore);
-
-  // ==============================TODAY===============================
-  // useEffect(() => {
-  //   setToday(DateTime.now());
-  // }, [tasksStore]);
+  // const [tasksStore, dispatch] = useReducer(tasksReducer, []);
 
   // ==============================TASK FILTER=========================
-  const tasksOfTheCurrentProject = tasksStore.filter(
-    (task) => task.currentProjectID === currentProject.id
-  );
-
+  const tasksStore = useSelector(selectAllTasks);
+  // const tasksOfTheCurrentProject = useSelector(
+  //   selectTasksOfTheCurrentProject(currentProject.id)
+  // );
+  const queueTasks = useSelector(selectQueueTasks);
+  const developmentTasks = useSelector(selectDevelopmentTasks);
+  const doneTasks = useSelector(selectDoneTasks);
   // ==============================COLUMNS=============================
   const columnsArray: {
     status: TasksStatus["status"];
     columntColor: string;
+    tasks: Tasks[];
   }[] = [
-    { status: "queue", columntColor: "green.200" },
-    { status: "development", columntColor: "purple.200" },
-    { status: "done", columntColor: "pink.200" },
+    { status: "queue", columntColor: "green.200", tasks: queueTasks },
+    {
+      status: "development",
+      columntColor: "purple.200",
+      tasks: developmentTasks,
+    },
+    { status: "done", columntColor: "pink.200", tasks: doneTasks },
   ];
 
   // ==============================MODAL=============================
@@ -69,28 +83,22 @@ const ProjectsTasks = React.memo(() => {
   };
 
   // ==============================ADD=============================
-  const addTask = (status: TasksStatus["status"]) => {
-    // console.log(`task with ${status}`);
-    dispatch({
-      type: "ADD_TASK",
-      payload: {
-        id: v4(),
-        taskName: `new ${status} Task`,
-        currentProjectID: currentProject.id,
-        status: status,
-        description: "",
-        creationDate: DateTime.now().toFormat("yyyy-MM-dd"),
-        timeSpent: "",
-        dueDate: "",
-      },
-    });
+  const addTaskToStore = (status: TasksStatus["status"]) => {
+    store.dispatch(
+      addTask(
+        `new ${status} Task`,
+        currentProject.id,
+        "",
+        status,
+        DateTime.now().toFormat("yyyy-MM-dd"),
+        "",
+        ""
+      )
+    );
   };
   // ==============================DELETE=============================
   const onDelete = (id: string) => {
-    dispatch({
-      type: "DELETE_TASK",
-      payload: id,
-    });
+    store.dispatch(deleteTask(id));
   };
 
   // ==============================EDIT================================
@@ -101,21 +109,12 @@ const ProjectsTasks = React.memo(() => {
     status: TasksStatus["status"],
     dueDate?: string
   ) => {
-    dispatch({
-      type: "EDIT_TASK",
-      payload: {
-        id,
-        taskName,
-        status,
-        description,
-        dueDate,
-      },
-    });
+    store.dispatch(editTask(id, taskName, description, status, dueDate));
   };
 
   // ==========================LOCAL STORAGE===========================
 
-  useLocalStorage("tasks", tasksStore, dispatch);
+  useLocalStorage("tasks", tasksStore, store.dispatch);
 
   // ==============================RENDER FASE===============================
 
@@ -144,7 +143,7 @@ const ProjectsTasks = React.memo(() => {
           bgClip="text"
           mt={4}
         >
-          {currentProject.task}
+          {currentProject.projectName}
         </Heading>
         <Flex bg={"blue.100"} borderRadius={20} p={4}>
           <SimpleGrid columns={{ base: 1, md: 3 }} spacing={{ base: 4, md: 4 }}>
@@ -154,10 +153,10 @@ const ProjectsTasks = React.memo(() => {
                 onEdit={openModal}
                 onDelete={onDelete}
                 // today={today}
-                tasks={tasksOfTheCurrentProject.filter(
-                  (task) => task.status === column.status
+                tasks={column.tasks.filter(
+                  (task) => task.currentProjectID === currentProject.id
                 )}
-                addTask={() => addTask(column.status)}
+                addTask={() => addTaskToStore(column.status)}
                 currentProjectID={currentProject.id}
                 columntName={column.status}
                 columntColor={column.columntColor}

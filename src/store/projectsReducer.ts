@@ -11,7 +11,6 @@ export type projectAction =
   | { type: "SET_PROJECTS"; payload: Projects[] };
 
 // =======================================ACTIONS============================
-// export const addProject = (projectName: string): projectAction => ({
 export const addProject = (projectName: string): projectAction => ({
   type: "ADD_PROJECT",
   payload: { projectName: projectName },

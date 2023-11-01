@@ -11,7 +11,7 @@ declare global {
 // Корневой редьюсер, если у вас больше одного редьюсера
 const rootReducer = combineReducers({
   projects: projectsReducer,
-  // tasks: tasksReducer,
+  tasks: tasksReducer,
   // subTasks: tasksReducer,
   // другие редьюсеры могут быть добавлены сюда
 });
