@@ -23,6 +23,7 @@ import {
   Footer,
 } from "../components/componentsList";
 import { useSelector } from "react-redux";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export interface Projects {
   id: string;
@@ -67,7 +68,7 @@ const ProjectsList = () => {
 
   // ==============================LOCAL STORAGE=============================
 
-  // useLocalStorage("projects", projects, dispatch);
+  useLocalStorage("projects", projects, store.dispatch);
 
   // ==============================PROJECTS MOOVING ITEMS=====================
   // const moveItem = (fromIndex: number, toIndex: number) => {
@@ -119,9 +120,7 @@ const ProjectsList = () => {
                 <EditProject
                   key={index}
                   notation={project}
-                  onEdit={(id: string, name: string) =>
-                    editProjectOut(id, name)
-                  }
+                  onEdit={editProjectOut}
                 />
               ) : (
                 <ProjectPad
@@ -131,10 +130,8 @@ const ProjectsList = () => {
                   index={index}
                   // moveItem={moveItem}
                   project={project}
-                  onEdit={(id: string, name: string) =>
-                    editProjectOut(id, name)
-                  }
-                  onComplete={(id: string) => completeProjectOut(id)}
+                  onEdit={editProjectOut}
+                  onComplete={completeProjectOut}
                 />
               )
             )}
