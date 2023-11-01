@@ -1,17 +1,18 @@
 import { Input, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { Projects } from "../pages/ProjectsList";
 
 interface Props {
-  notation: any;
-  onEdit: (subTaskValue: any, id: string) => void;
+  notation: Projects;
+  onEdit: (subTaskValue: string, id: string) => void;
 }
 
 export const EditNotation = ({
   notation: notation,
   onEdit: editNotation,
 }: Props) => {
-  const [value, setValue] = useState(notation.task);
+  const [value, setValue] = useState(notation.projectName);
 
   const handleSubmit = (e: any) => {
     // prevent default action

@@ -24,7 +24,14 @@ export const Footer = ({ badge, icon, name, onClick }: FooterProps) => {
         _hover={{ bg: "blue.200" }}
         onClick={onClick}
       >
-        <Badge borderRadius={50} h={8} w={8} pt={1.5}>
+        <Badge
+          display={"flex"}
+          borderRadius={50}
+          h={8}
+          w={8}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           {badge}
         </Badge>
         <Text

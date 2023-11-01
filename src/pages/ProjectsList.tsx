@@ -1,6 +1,16 @@
-import { useEffect, useReducer, useState } from "react";
-import { Flex, VStack, Text, Heading } from "@chakra-ui/react";
-import { projectsReducer } from "../store/projectsReducer";
+import { useState } from "react";
+import { Flex, VStack, Heading } from "@chakra-ui/react";
+import {
+  addProject,
+  editProject,
+  completeProject,
+  deleteProject,
+  selectAllProjects,
+  selectCompletedProjects,
+  selectActiveProjects,
+} from "../store/projectsReducer";
+
+import store from "../store/store";
 import {
   MdDone,
   MdOutlineNotificationsActive,
@@ -12,18 +22,20 @@ import {
   EditNotation as EditProject,
   Footer,
 } from "../components/componentsList";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useSelector } from "react-redux";
 
 export interface Projects {
   id: string;
-  task: string;
+  projectName: string;
   isEditing: boolean;
   active: boolean;
   complited: boolean;
 }
 
 const ProjectsList = () => {
-  const [projects, dispatch] = useReducer(projectsReducer, [] as Projects[]);
+  const projects = useSelector(selectAllProjects);
+  const completeProjects = useSelector(selectCompletedProjects);
+  const activeProjects = useSelector(selectActiveProjects);
 
   const [renderFilter, setRenderFilter] = useState("all");
 
@@ -31,47 +43,39 @@ const ProjectsList = () => {
     renderFilter === "all"
       ? projects
       : renderFilter === "active"
-      ? projects.filter((t) => t.active === true)
-      : projects.filter((t) => t.complited === true);
-
+      ? activeProjects
+      : completeProjects;
+  // =================================ADD=============================
+  const addProjectToStore = (project: string) => {
+    store.dispatch(addProject(project));
+  };
   // =================================EDIT=============================
 
-  const editProject = (id: string, currentTaskName: string) => {
-    dispatch({
-      type: "EDIT_PROJECT",
-      payload: { id: id, task: currentTaskName },
-    });
+  const editProjectOut = (id: string, currentTaskName: string) => {
+    store.dispatch(editProject(id, currentTaskName));
   };
+
   // ==============================COMPLETE=============================
-  const completeProject = (id: string) => {
-    dispatch({ type: "COMPLETE_PROJECT", payload: id });
+  const completeProjectOut = (id: string) => {
+    store.dispatch(completeProject(id));
   };
-  const completedTask = projects.filter((t: Projects) => t.complited == true);
 
   // ==============================DELETE=============================
-  const deleteProject = (id: string) => {
-    dispatch({ type: "DELETE_PROJECT", payload: id });
-    // const newProjects = projects.filter((project) => project.id !== id);
+  const deleteProjectOut = (id: string) => {
+    store.dispatch(deleteProject(id));
   };
-
-  // ==============================ADD=============================
-  const addProject = (project: string) => {
-    dispatch({ type: "ADD_PROJECT", payload: { task: project } });
-  };
-
-  const activeTask = projects.filter((t: Projects) => t.active == true);
 
   // ==============================LOCAL STORAGE=============================
 
-  useLocalStorage("projects", projects, dispatch);
+  // useLocalStorage("projects", projects, dispatch);
 
   // ==============================PROJECTS MOOVING ITEMS=====================
-  const moveItem = (fromIndex: number, toIndex: number) => {
-    const updatedList = [...projects];
-    const [movedItem] = updatedList.splice(fromIndex, 1);
-    updatedList.splice(toIndex, 0, movedItem);
-    dispatch({ type: "SET_PROJECTS", payload: updatedList });
-  };
+  // const moveItem = (fromIndex: number, toIndex: number) => {
+  //   const updatedList = [...projects];
+  //   const [movedItem] = updatedList.splice(fromIndex, 1);
+  //   updatedList.splice(toIndex, 0, movedItem);
+  //   dispatch({ type: "SET_PROJECTS", payload: updatedList });
+  // };
   // ==============================RENDER FASE===============================
   return (
     <Flex
@@ -93,7 +97,7 @@ const ProjectsList = () => {
       </Heading>
       <VStack gap={0} mt={6}>
         <AddProject
-          addTodo={addProject}
+          addTodo={addProjectToStore}
           placeHolder="Choose New Project"
           buttonName="Add"
         />
@@ -115,18 +119,22 @@ const ProjectsList = () => {
                 <EditProject
                   key={index}
                   notation={project}
-                  onEdit={(id: string, name: string) => editProject(id, name)}
+                  onEdit={(id: string, name: string) =>
+                    editProjectOut(id, name)
+                  }
                 />
               ) : (
                 <ProjectPad
                   width={"73%"}
-                  onDelete={deleteProject}
+                  onDelete={deleteProjectOut}
                   key={project.id}
                   index={index}
-                  moveItem={moveItem}
-                  task={project}
-                  onEdit={(id: string, name: string) => editProject(id, name)}
-                  onComplete={(id: string) => completeProject(id)}
+                  // moveItem={moveItem}
+                  project={project}
+                  onEdit={(id: string, name: string) =>
+                    editProjectOut(id, name)
+                  }
+                  onComplete={(id: string) => completeProjectOut(id)}
                 />
               )
             )}
@@ -150,13 +158,13 @@ const ProjectsList = () => {
           />
           <Footer
             onClick={() => setRenderFilter("active")}
-            badge={activeTask.length}
+            badge={activeProjects.length}
             icon={<MdOutlineNotificationsActive size={22} />}
             name={"active"}
           />
           <Footer
             onClick={() => setRenderFilter("completed")}
-            badge={completedTask.length}
+            badge={completeProjects.length}
             icon={<MdDone size={22} />}
             name={"completed"}
           />
