@@ -14,14 +14,13 @@ import {
 } from "@chakra-ui/react";
 import {
   AddNotation as AddSubTask,
-  NotationPad as ProjectPad,
-  EditNotation as EditProject,
-  Footer,
+  EditNotation as EditSubTask,
 } from "../components/componentsList";
 
 import { DateTime } from "luxon";
 
 import { Tasks, TasksStatus } from "../pages/Tasks";
+import SubTasksList from "./SubTasksList";
 
 interface Props {
   submit: () => void;
@@ -125,24 +124,25 @@ const EditTask = React.memo(({ currentTask, onEdit, submit }: Props) => {
                     onChange={(e) => handleDateChange(e.target.value)}
                   />
                 </Flex>
+                <Button
+                  w={"100%"}
+                  bg={"blue.400"}
+                  color={"white"}
+                  onClick={handleSubmit}
+                >
+                  SUBMIT
+                </Button>
               </Flex>
             </form>
           </TabPanel>
           <TabPanel>
-            <AddSubTask
-              addTodo={() => {}}
-              placeHolder="Choose Sub Task"
-              buttonName="Add"
-            />
+            <SubTasksList currentTaskID={currentTask.id} />
           </TabPanel>
           <TabPanel>
             <p>three!</p>
           </TabPanel>
         </TabPanels>
       </Tabs>
-      <Button w={"100%"} bg={"blue.400"} color={"white"} onClick={handleSubmit}>
-        SUBMIT
-      </Button>
     </>
   );
 });

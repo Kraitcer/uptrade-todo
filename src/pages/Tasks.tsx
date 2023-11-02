@@ -87,7 +87,7 @@ const ProjectsTasks = React.memo(() => {
     store.dispatch(
       addTask(
         `new ${status} Task`,
-        currentProject.id,
+        currentProject,
         "",
         status,
         DateTime.now().toFormat("yyyy-MM-dd"),
@@ -154,10 +154,10 @@ const ProjectsTasks = React.memo(() => {
                 onDelete={onDelete}
                 // today={today}
                 tasks={column.tasks.filter(
-                  (task) => task.currentProjectID === currentProject.id
+                  (task) => task.currentProjectID === currentProject
                 )}
                 addTask={() => addTaskToStore(column.status)}
-                currentProjectID={currentProject.id}
+                currentProjectID={currentProject}
                 columntName={column.status}
                 columntColor={column.columntColor}
               />

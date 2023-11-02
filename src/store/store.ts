@@ -2,6 +2,7 @@
 import { createStore, combineReducers, compose } from "redux";
 import { projectsReducer } from "./projectsReducer";
 import { tasksReducer } from "./tasksReducer";
+import { subTasksReducer } from "./subTasksReducer";
 
 declare global {
   interface Window {
@@ -12,7 +13,7 @@ declare global {
 const rootReducer = combineReducers({
   projects: projectsReducer,
   tasks: tasksReducer,
-  // subTasks: tasksReducer,
+  subTasks: subTasksReducer,
   // другие редьюсеры могут быть добавлены сюда
 });
 

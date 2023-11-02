@@ -14,7 +14,9 @@ import { Projects } from "../pages/ProjectsList";
 
 interface Props {
   width: string;
-  project: Projects;
+  notationID: string;
+  notationName: string;
+  complited: boolean;
   onDelete: (id: string) => void;
   onEdit: (id: string, name: string) => void;
   onComplete: (id: string) => void;
@@ -25,7 +27,9 @@ interface Props {
 
 export const NotationPad = ({
   width,
-  project,
+  notationID,
+  notationName,
+  complited,
   onDelete,
   onEdit: editNotation,
   onComplete: completeNotation,
@@ -82,18 +86,18 @@ export const NotationPad = ({
         justifyContent={"center"}
         alignItems={"center"}
         cursor={"pointer"}
-        onClick={() => navigate("/projectstaskbord", { state: project })}
+        onClick={() => navigate("/projectstaskbord", { state: notationID })}
         // flexDirection={"raw"}
       >
         <Flex>
           <Text
-            as={project.complited === true ? "del" : undefined}
+            as={complited === true ? "del" : undefined}
             m={0}
             textOverflow={"ellipsis"}
             whiteSpace={"nowrap"}
             overflow={"hidden"}
           >
-            {project.projectName}
+            {notationName}
           </Text>
         </Flex>
       </Box>
@@ -111,15 +115,13 @@ export const NotationPad = ({
             _hover={{ bg: "orange.400" }}
             borderRightRadius={10}
           >
-            <BiEdit
-              onClick={() => editNotation(project.id, project.projectName)}
-            />
-            {project.complited ? (
-              <FaTrashRestoreAlt onClick={() => completeNotation(project.id)} />
+            <BiEdit onClick={() => editNotation(notationID, notationName)} />
+            {complited ? (
+              <FaTrashRestoreAlt onClick={() => completeNotation(notationID)} />
             ) : (
-              <MdDone onClick={() => completeNotation(project.id)} />
+              <MdDone onClick={() => completeNotation(notationID)} />
             )}
-            <IoTrashBinSharp onClick={() => onDelete(project.id)} />
+            <IoTrashBinSharp onClick={() => onDelete(notationID)} />
           </Flex>
         </Flex>
       </Flex>

@@ -1,28 +1,29 @@
 import { Input, Flex } from "@chakra-ui/react";
 import { useState } from "react";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { Projects } from "../pages/ProjectsList";
 
 interface Props {
-  notation: Projects;
+  notationID: string;
+  notationName: string;
   onEdit: (subTaskValue: string, id: string) => void;
 }
 
 export const EditNotation = ({
-  notation: notation,
+  notationID,
+  notationName,
   onEdit: editNotation,
 }: Props) => {
-  const [value, setValue] = useState(notation.projectName);
+  const [value, setValue] = useState(notationName);
 
   const handleSubmit = (e: any) => {
     // prevent default action
     e.preventDefault();
     // edit todo
-    editNotation(notation.id, value);
+    editNotation(notationID, value);
   };
   return (
     <form onSubmit={handleSubmit} className="TodoForm">
-      <Flex w={"98%"}>
+      <Flex w={"100%"} mb={1}>
         <Input
           m={0}
           bg={"white"}

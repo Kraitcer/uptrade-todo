@@ -112,6 +112,7 @@ const ProjectsList = () => {
             borderTopRadius={20}
             gap={2}
             pl={3}
+            pr={3}
             pt={3}
             pb={2}
           >
@@ -119,17 +120,20 @@ const ProjectsList = () => {
               project.isEditing ? (
                 <EditProject
                   key={index}
-                  notation={project}
+                  notationID={project.id}
+                  notationName={project.projectName}
                   onEdit={editProjectOut}
                 />
               ) : (
                 <ProjectPad
-                  width={"73%"}
+                  width={"100%"}
                   onDelete={deleteProjectOut}
                   key={project.id}
                   index={index}
                   // moveItem={moveItem}
-                  project={project}
+                  notationID={project.id}
+                  notationName={project.projectName}
+                  complited={project.complited}
                   onEdit={editProjectOut}
                   onComplete={completeProjectOut}
                 />
