@@ -1,8 +1,8 @@
-import { Badge } from "@chakra-ui/react";
+import { Badge, Flex } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
-import { GiSandsOfTime } from "../utilities/icons";
+import { GiSandsOfTime } from "../../utilities/icons";
 import { DateTime } from "luxon";
-import { Tasks } from "../pages/Tasks";
+import { Tasks } from "../../pages/Tasks";
 
 interface TimeLeftBadgeProps {
   task: Tasks;
@@ -36,10 +36,10 @@ const TimeLeftBadge = ({ task }: TimeLeftBadgeProps) => {
   //   timeLeftBadge = "depricated";
   // }
   return (
-    <>
-      <Badge>{timeLeftBadge}</Badge>
+    <Flex alignItems={"center"} gap={1}>
       {timeLeftBadge && <GiSandsOfTime />}
-    </>
+      <Badge>{timeLeftBadge}</Badge>
+    </Flex>
   );
 };
 

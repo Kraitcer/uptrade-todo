@@ -24,6 +24,7 @@ import {
 } from "../components/componentsList";
 import { useSelector } from "react-redux";
 import { useLocalStorage } from "../hooks/useLocalStorage";
+import TasksBadge from "../components/badges/TasksBadge";
 
 export interface Projects {
   id: string;
@@ -126,6 +127,7 @@ const ProjectsList = () => {
                 />
               ) : (
                 <ProjectPad
+                  children={<TasksBadge currentProjectID={project.id} />}
                   width={"100%"}
                   onDelete={deleteProjectOut}
                   key={project.id}

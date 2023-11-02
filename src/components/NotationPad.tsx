@@ -13,6 +13,7 @@ import {
 import { Projects } from "../pages/ProjectsList";
 
 interface Props {
+  children: React.ReactNode;
   width: string;
   notationID: string;
   notationName: string;
@@ -26,6 +27,7 @@ interface Props {
 }
 
 export const NotationPad = ({
+  children,
   width,
   notationID,
   notationName,
@@ -89,7 +91,7 @@ export const NotationPad = ({
         onClick={() => navigate("/projectstaskbord", { state: notationID })}
         // flexDirection={"raw"}
       >
-        <Flex>
+        <Flex justifyContent={"space-between"}>
           <Text
             as={complited === true ? "del" : undefined}
             m={0}
@@ -99,6 +101,7 @@ export const NotationPad = ({
           >
             {notationName}
           </Text>
+          <Flex>{children}</Flex>
         </Flex>
       </Box>
       <Flex>

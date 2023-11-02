@@ -5,11 +5,12 @@ import {
   MdDragIndicator,
   GiSandsOfTime,
 } from "../utilities/icons";
-import TimeLeftBadge from "./TimeLeftBadge";
+import TimeLeftBadge from "./badges/TimeLeftBadge";
 import { Tasks } from "../pages/Tasks";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import React from "react";
+import ActiveSubTaskBadge from "././badges/ActiveSubTaskBadge";
 
 interface Prop {
   task: Tasks;
@@ -58,8 +59,9 @@ const TaskPad = React.memo(({ onEdit, onDelete, task }: Prop) => {
             >
               {task.taskName}
             </Text>
-            <Flex gap={1} flexDirection={"row-reverse"} alignItems={"center"}>
+            <Flex gap={2} flexDirection={"row-reverse"} alignItems={"center"}>
               <TimeLeftBadge task={task} />
+              <ActiveSubTaskBadge currentTaskID={task.id} />
             </Flex>
           </Flex>
         </Flex>
