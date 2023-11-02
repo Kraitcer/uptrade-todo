@@ -5,12 +5,15 @@ import {
 } from "../../store/tasksReducer";
 import { useSelector } from "react-redux";
 import { Flex, Badge } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   currentProjectID: string;
 }
 
 const TasksBadge = ({ currentProjectID }: Props) => {
+  const navigate = useNavigate();
+
   const queueTasks = useSelector(selectQueueTasks).filter(
     (task) => task.currentProjectID === currentProjectID
   );
@@ -44,10 +47,17 @@ const TasksBadge = ({ currentProjectID }: Props) => {
   ];
 
   return (
-    <Flex gap={2}>
-      {badgesArray.map((badge) => (
+    <Flex
+      gap={2}
+      _hover={{ bg: "white" }}
+      p={1}
+      borderRadius={50}
+      onClick={() => navigate("/projectstaskbord", { state: currentProjectID })}
+    >
+      {badgesArray.map((badge, index) => (
         <Badge
-          pt={0.5}
+          key={index}
+          //   pt={0.5}
           bg={badge.badgeColor}
           borderRadius={50}
           w={6}

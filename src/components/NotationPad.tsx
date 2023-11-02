@@ -55,8 +55,6 @@ export const NotationPad = ({
   //   },
   // });
 
-  const navigate = useNavigate();
-
   return (
     <HStack
       gap={0}
@@ -84,19 +82,21 @@ export const NotationPad = ({
         color={"white"}
         w={width}
         h={10}
-        p={1.5}
-        pl={3}
-        pr={2}
+        // p={1.5}
+        // pl={3}
+        // pr={2}
+        display={"flex"}
         justifyContent={"center"}
         alignItems={"center"}
         cursor={"pointer"}
-        onClick={() => navigate("/projectstaskbord", { state: notationID })}
+
         // flexDirection={"raw"}
       >
-        <Flex justifyContent={"space-between"}>
+        <Flex justifyContent={"space-between"} alignItems={"center"}>
           <Text
             as={complited === true ? "del" : undefined}
             m={0}
+            ml={2}
             textOverflow={"ellipsis"}
             whiteSpace={"nowrap"}
             overflow={"hidden"}
