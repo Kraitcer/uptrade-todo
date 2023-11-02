@@ -13,6 +13,7 @@ import {
 import { Projects } from "../pages/ProjectsList";
 
 interface Props {
+  nameWidth: string;
   children: React.ReactNode;
   width: string;
   notationID: string;
@@ -27,6 +28,7 @@ interface Props {
 }
 
 export const NotationPad = ({
+  nameWidth,
   children,
   width,
   notationID,
@@ -98,6 +100,7 @@ export const NotationPad = ({
             textOverflow={"ellipsis"}
             whiteSpace={"nowrap"}
             overflow={"hidden"}
+            w={nameWidth}
           >
             {notationName}
           </Text>

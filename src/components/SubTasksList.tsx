@@ -67,6 +67,7 @@ const SubTasksList = ({ currentTaskID }: Props) => {
           />
         ) : (
           <SubTaskPad
+            nameWidth={"350px"}
             children={""}
             width={"100%"}
             onDelete={deleteSubTaskOut}

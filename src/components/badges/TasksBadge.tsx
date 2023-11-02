@@ -1,19 +1,10 @@
-import React from "react";
 import {
-  tasksReducer,
-  addTask,
-  editTask,
-  deleteTask,
-  setTask,
-  selectAllTasks,
-  selectTasksOfTheCurrentProject,
   selectQueueTasks,
   selectDevelopmentTasks,
   selectDoneTasks,
 } from "../../store/tasksReducer";
 import { useSelector } from "react-redux";
 import { Flex, Badge } from "@chakra-ui/react";
-import Tasks from "../../pages/Tasks";
 
 interface Props {
   currentProjectID: string;
