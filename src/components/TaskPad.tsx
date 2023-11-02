@@ -5,13 +5,13 @@ import {
   MdDragIndicator,
   GiSandsOfTime,
 } from "../utilities/icons";
+import TimeLeftBadge from "./TimeLeftBadge";
 import { Tasks } from "../pages/Tasks";
 import { DateTime } from "luxon";
 import { useEffect, useState } from "react";
 import React from "react";
 
 interface Prop {
-  // today?: DateTime;
   task: Tasks;
   onDelete: (id: string) => void;
 
@@ -19,32 +19,6 @@ interface Prop {
 }
 
 const TaskPad = React.memo(({ onEdit, onDelete, task }: Prop) => {
-  const [today, setToday] = useState<DateTime>(DateTime.now());
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setToday(DateTime.now());
-    }, 1000 * 24);
-
-    return () => clearInterval(intervalId);
-  }, [task]);
-
-  const dueDate = task.dueDate ? DateTime.fromISO(task.dueDate) : "";
-  // const today = DateTime.now();
-  // console.log(today);
-  const timeLeft = dueDate && dueDate?.diff(today, "days").as("days");
-  const roundedTimeLeft = Math.floor(timeLeft ? timeLeft + 1 : NaN);
-  // console.log(timeLeft);
-  let timeLeftBadge = "";
-  if (roundedTimeLeft === 0) {
-    timeLeftBadge = `Today`;
-  } else if (roundedTimeLeft === 1) {
-    timeLeftBadge = `${roundedTimeLeft} Day`;
-  } else if (typeof roundedTimeLeft === "number" && roundedTimeLeft > 1) {
-    timeLeftBadge = `${roundedTimeLeft} Days`;
-  }
-  // else if (dueDate && dueDate < today) {
-  //   timeLeftBadge = "depricated";
-  // }
   return (
     <HStack gap={0} mr={0} h={16}>
       <Flex
@@ -85,8 +59,7 @@ const TaskPad = React.memo(({ onEdit, onDelete, task }: Prop) => {
               {task.taskName}
             </Text>
             <Flex gap={1} flexDirection={"row-reverse"} alignItems={"center"}>
-              <Badge>{timeLeftBadge}</Badge>
-              {timeLeftBadge && <GiSandsOfTime />}
+              <TimeLeftBadge task={task} />
             </Flex>
           </Flex>
         </Flex>
