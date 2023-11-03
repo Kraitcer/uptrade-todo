@@ -68,7 +68,14 @@ const TasksBadge = ({ currentProjectID, currentProjectName }: Props) => {
       _hover={{ bg: "white" }}
       p={1}
       borderRadius={50}
-      onClick={() => navigate("/projectstaskbord", { state: currentProjectID })}
+      onClick={() =>
+        navigate("/projectstaskbord", {
+          state: {
+            projectID: currentProjectID,
+            projectName: currentProjectName,
+          },
+        })
+      }
     >
       {badgesArray.map((badge, index) => (
         <Badge

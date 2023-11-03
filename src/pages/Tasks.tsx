@@ -1,19 +1,15 @@
 import { Flex, Heading, SimpleGrid, VStack } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import { v4 } from "uuid";
 import { useLocation } from "react-router-dom";
-import { useEffect, useMemo, useReducer, useState } from "react";
+import { useState } from "react";
 import Column from "../components/Column";
 import AllModal from "../components/AllModal";
 import EditTask from "../components/EditTask";
 import {
-  tasksReducer,
   addTask,
   editTask,
   deleteTask,
-  setTask,
   selectAllTasks,
-  selectTasksOfTheCurrentProject,
   selectQueueTasks,
   selectDevelopmentTasks,
   selectDoneTasks,
@@ -87,7 +83,7 @@ const ProjectsTasks = React.memo(() => {
     store.dispatch(
       addTask(
         `new ${status} Task`,
-        currentProject,
+        currentProject.projectID,
         "",
         status,
         DateTime.now().toFormat("yyyy-MM-dd"),
@@ -154,10 +150,10 @@ const ProjectsTasks = React.memo(() => {
                 onDelete={onDelete}
                 // today={today}
                 tasks={column.tasks.filter(
-                  (task) => task.currentProjectID === currentProject
+                  (task) => task.currentProjectID === currentProject.projectID
                 )}
                 addTask={() => addTaskToStore(column.status)}
-                currentProjectID={currentProject}
+                currentProjectID={currentProject.projectID}
                 columntName={column.status}
                 columntColor={column.columntColor}
               />
