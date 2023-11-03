@@ -67,10 +67,6 @@ const ProjectsList = () => {
     store.dispatch(deleteProject(id));
   };
 
-  // ==============================LOCAL STORAGE=============================
-
-  // useLocalStorage("projects", projects, store.dispatch);
-
   // ==============================PROJECTS MOOVING ITEMS=====================
   // const moveItem = (fromIndex: number, toIndex: number) => {
   //   const updatedList = [...projects];

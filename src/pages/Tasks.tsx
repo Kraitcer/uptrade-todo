@@ -108,10 +108,6 @@ const ProjectsTasks = React.memo(() => {
     store.dispatch(editTask(id, taskName, description, status, dueDate));
   };
 
-  // ==========================LOCAL STORAGE===========================
-
-  // useLocalStorage("tasks", tasksStore, store.dispatch);
-
   // ==============================RENDER FASE===============================
 
   return (
