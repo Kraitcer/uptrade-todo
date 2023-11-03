@@ -16,7 +16,6 @@ import {
 } from "../store/subTasksReducer";
 
 import { useSelector } from "react-redux";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 
 interface Props {
   currentTaskID: string;

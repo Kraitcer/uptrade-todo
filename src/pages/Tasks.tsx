@@ -17,7 +17,6 @@ import {
 import store from "../store/store";
 import { useSelector } from "react-redux";
 
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import React from "react";
 
 export interface TasksStatus {

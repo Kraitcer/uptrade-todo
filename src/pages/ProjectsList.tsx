@@ -23,7 +23,6 @@ import {
   Footer,
 } from "../components/componentsList";
 import { useSelector } from "react-redux";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 import TasksBadge from "../components/badges/TasksBadge";
 
 export interface Projects {
