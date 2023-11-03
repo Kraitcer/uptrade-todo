@@ -1,14 +1,7 @@
-import { Flex, Text, Box, HStack, Badge } from "@chakra-ui/react";
-import {
-  IoTrashBinSharp,
-  BiEdit,
-  MdDragIndicator,
-  GiSandsOfTime,
-} from "../utilities/icons";
+import { Flex, Text, Box, HStack } from "@chakra-ui/react";
+import { IoTrashBinSharp, BiEdit, MdDragIndicator } from "../utilities/icons";
 import TimeLeftBadge from "./badges/TimeLeftBadge";
 import { Tasks } from "../pages/Tasks";
-import { DateTime } from "luxon";
-import { useEffect, useState } from "react";
 import React from "react";
 import ActiveSubTaskBadge from "././badges/ActiveSubTaskBadge";
 
@@ -47,7 +40,6 @@ const TaskPad = React.memo(({ onEdit, onDelete, task }: Prop) => {
         justifyContent={"center"}
         alignItems={"center"}
         cursor={"pointer"}
-        // onClick={() => navigate("/projectstaskbord", { state: task })}
       >
         <Flex w={"404px"}>
           <Flex w={"100%"} flexDirection={"column"} gap={2}>

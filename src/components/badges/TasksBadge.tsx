@@ -1,4 +1,4 @@
-import { Flex, Badge } from "@chakra-ui/react";
+import { Flex, Badge, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import {
   selectQueueTasks,
@@ -49,9 +49,10 @@ const TasksBadge = ({ currentProjectID, currentProjectName }: Props) => {
   return (
     <Flex
       gap={2}
-      _hover={{ bg: "white" }}
-      p={1}
+      _hover={{ bg: "white", color: "black" }}
+      p={0.5}
       borderRadius={50}
+      mr={1}
       onClick={() =>
         navigate("/projectstaskbord", {
           state: {
@@ -61,21 +62,31 @@ const TasksBadge = ({ currentProjectID, currentProjectName }: Props) => {
         })
       }
     >
-      {badgesArray.map((badge, index) => (
-        <Badge
-          key={index}
-          //   pt={0.5}
-          bg={badge.badgeColor}
-          borderRadius={50}
-          w={6}
-          display={"flex"}
-          alignContent={"center"}
-          justifyContent={"center"}
-          textAlign={"center"}
-        >
-          {badge.badgeContent}
-        </Badge>
-      ))}
+      {queueTasks.length == 0 &&
+      developmentTasks.length == 0 &&
+      doneTasks.length == 0 ? (
+        <Text mx={2} textTransform={"uppercase"} whiteSpace={"nowrap"}>
+          add tasks
+        </Text>
+      ) : (
+        badgesArray.map((badge, index) =>
+          badge.badgeContent > 0 ? (
+            <Badge
+              key={index}
+              //   pt={0.5}
+              bg={badge.badgeColor}
+              borderRadius={50}
+              w={6}
+              display={"flex"}
+              alignContent={"center"}
+              justifyContent={"center"}
+              textAlign={"center"}
+            >
+              {badge.badgeContent}
+            </Badge>
+          ) : null
+        )
+      )}
     </Flex>
   );
 };
