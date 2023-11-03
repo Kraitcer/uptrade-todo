@@ -50,6 +50,8 @@ const SubTasksList = ({ currentTaskID }: Props) => {
   // ==============================LOCAL STORAGE=============================
 
   useLocalStorage("subTasks", allSubTasks, store.dispatch);
+
+  // ==============================RENDER FASE=============================
   return (
     <>
       <AddSubTask

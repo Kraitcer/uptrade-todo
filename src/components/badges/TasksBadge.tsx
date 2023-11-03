@@ -1,28 +1,17 @@
-import {
-  selectQueueTasks,
-  selectDevelopmentTasks,
-  selectDoneTasks,
-} from "../../store/tasksReducer";
-import { useSelector } from "react-redux";
 import { Flex, Badge } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 interface Props {
   currentProjectID: string;
+  currentProjectName: string;
 }
 
-const TasksBadge = ({ currentProjectID }: Props) => {
+const TasksBadge = ({ currentProjectID, currentProjectName }: Props) => {
   const navigate = useNavigate();
-
-  const queueTasks = useSelector(selectQueueTasks).filter(
-    (task) => task.currentProjectID === currentProjectID
-  );
-  const developmentTasks = useSelector(selectDevelopmentTasks).filter(
-    (task) => task.currentProjectID === currentProjectID
-  );
-  const doneTasks = useSelector(selectDoneTasks).filter(
-    (task) => task.currentProjectID === currentProjectID
-  );
+  const [queueTasks, setQueueTasks] = useState([]);
+  const [developmentTasks, setDevelopmentTasks] = useState([]);
+  const [doneTasks, setDoneTasks] = useState([]);
 
   const badgesArray: {
     badgeName: string;
@@ -35,7 +24,7 @@ const TasksBadge = ({ currentProjectID }: Props) => {
       badgeContent: queueTasks.length,
     },
     {
-      badgeName: "developmentTasks",
+      badgeName: "development",
       badgeColor: "purple.200",
       badgeContent: developmentTasks.length,
     },
@@ -45,6 +34,33 @@ const TasksBadge = ({ currentProjectID }: Props) => {
       badgeContent: doneTasks.length,
     },
   ];
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("tasks");
+    if (storedData && storedData.length > 0) {
+      const savedBadgesArray = JSON.parse(storedData);
+      setQueueTasks(
+        savedBadgesArray.filter(
+          (task: any) =>
+            task.currentProjectID === currentProjectID &&
+            task.status === "queue"
+        )
+      );
+      setDevelopmentTasks(
+        savedBadgesArray.filter(
+          (task: any) =>
+            task.currentProjectID === currentProjectID &&
+            task.status === "development"
+        )
+      );
+      setDoneTasks(
+        savedBadgesArray.filter(
+          (task: any) =>
+            task.currentProjectID === currentProjectID && task.status === "done"
+        )
+      );
+    }
+  }, []);
 
   return (
     <Flex

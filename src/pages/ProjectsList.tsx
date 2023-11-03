@@ -128,7 +128,12 @@ const ProjectsList = () => {
               ) : (
                 <ProjectPad
                   nameWidth={"300px"}
-                  children={<TasksBadge currentProjectID={project.id} />}
+                  children={
+                    <TasksBadge
+                      currentProjectID={project.id}
+                      currentProjectName={project.projectName}
+                    />
+                  }
                   width={"100%"}
                   onDelete={deleteProjectOut}
                   key={project.id}
