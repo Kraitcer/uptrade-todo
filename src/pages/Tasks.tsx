@@ -110,7 +110,7 @@ const ProjectsTasks = React.memo(() => {
 
   // ==========================LOCAL STORAGE===========================
 
-  useLocalStorage("tasks", tasksStore, store.dispatch);
+  // useLocalStorage("tasks", tasksStore, store.dispatch);
 
   // ==============================RENDER FASE===============================
 

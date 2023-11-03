@@ -69,7 +69,7 @@ const ProjectsList = () => {
 
   // ==============================LOCAL STORAGE=============================
 
-  useLocalStorage("projects", projects, store.dispatch);
+  // useLocalStorage("projects", projects, store.dispatch);
 
   // ==============================PROJECTS MOOVING ITEMS=====================
   // const moveItem = (fromIndex: number, toIndex: number) => {

@@ -6,6 +6,8 @@ import store from "./store/store";
 import { RouterProvider } from "react-router-dom";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { PersistGate } from "redux-persist/integration/react";
+import { persistor } from "./store/store";
 
 import router from "./routes";
 
@@ -21,7 +23,9 @@ root.render(
     >
       <Provider store={store}>
         <DndProvider backend={HTML5Backend}>
-          <RouterProvider router={router} />
+          <PersistGate loading={null} persistor={persistor}>
+            <RouterProvider router={router} />
+          </PersistGate>
         </DndProvider>
       </Provider>
       {/* <TestDnDComponent /> */}

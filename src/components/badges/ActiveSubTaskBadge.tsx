@@ -20,7 +20,7 @@ const ActiveSubTaskBadge = ({ currentTaskID }: Props) => {
         )
       );
     }
-  }, [activeSubTasks]);
+  }, []);
   return (
     <Flex alignItems={"center"} gap={1}>
       {activeSubTasks.length > 0 && <GoTasklist size={24} />}
