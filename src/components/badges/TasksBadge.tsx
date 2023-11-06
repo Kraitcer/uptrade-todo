@@ -62,9 +62,9 @@ const TasksBadge = ({ currentProjectID, currentProjectName }: Props) => {
         })
       }
     >
-      {queueTasks.length == 0 &&
-      developmentTasks.length == 0 &&
-      doneTasks.length == 0 ? (
+      {queueTasks.length === 0 &&
+      developmentTasks.length === 0 &&
+      doneTasks.length === 0 ? (
         <Text mx={2} textTransform={"uppercase"} whiteSpace={"nowrap"}>
           add tasks
         </Text>

@@ -1,4 +1,3 @@
-import { Projects } from "../pages/ProjectsList";
 import { v4 } from "uuid";
 import { SubTasks } from "../pages/Tasks";
 import { createSelector } from "reselect";

@@ -1,7 +1,6 @@
 import { Text, Box, Flex, HStack } from "@chakra-ui/react";
-import { DragPreviewImage, useDrag, useDrop } from "react-dnd";
+import { useDrag, useDrop } from "react-dnd";
 import { dndItemsTypes } from "../utilities/dndItemsTypes";
-import { useNavigate } from "react-router-dom";
 
 import {
   FaTrashRestoreAlt,
@@ -10,7 +9,6 @@ import {
   MdDone,
   MdDragIndicator,
 } from "../utilities/icons";
-import { Projects } from "../pages/ProjectsList";
 
 interface Props {
   nameWidth: string;
@@ -22,7 +20,7 @@ interface Props {
   onDelete: (id: string) => void;
   onEdit: (id: string, name: string) => void;
   onComplete: (id: string) => void;
-  // moveItem: (fromIndex: number, toIndex: number) => void;
+  moveItem: (fromIndex: number, toIndex: number) => void;
   index: number;
   // children: number;
 }
@@ -37,32 +35,26 @@ export const NotationPad = ({
   onDelete,
   onEdit: editNotation,
   onComplete: completeNotation,
-  // moveItem,
+  moveItem,
   index,
 }: Props) => {
-  // const [, ref] = useDrag({
-  //   type: dndItemsTypes.PAD,
-  //   item: { id: task.id },
-  // });
+  const [, ref] = useDrag({
+    type: dndItemsTypes.PAD,
+    item: { id: notationID },
+  });
 
-  // const [, drop] = useDrop({
-  //   accept: dndItemsTypes.PAD,
-  //   hover: (draggedItem: { index: number }) => {
-  //     if (draggedItem.index !== index) {
-  //       moveItem(draggedItem.index, index);
-  //       draggedItem.index = index;
-  //     }
-  //   },
-  // });
+  const [, drop] = useDrop({
+    accept: dndItemsTypes.PAD,
+    hover: (draggedItem: { index: number }) => {
+      if (draggedItem.index !== index) {
+        moveItem(draggedItem.index, index);
+        draggedItem.index = index;
+      }
+    },
+  });
 
   return (
-    <HStack
-      gap={0}
-      mr={0}
-      mb={1}
-      w={"100%"}
-      //  ref={(node) => ref(drop(node))}
-    >
+    <HStack gap={0} mr={0} mb={1} w={"100%"} ref={(node) => ref(drop(node))}>
       <Flex
         bg={"orange.300"}
         h={10}

@@ -12,10 +12,6 @@ import {
   Tab,
   TabPanel,
 } from "@chakra-ui/react";
-import {
-  AddNotation as AddSubTask,
-  EditNotation as EditSubTask,
-} from "../components/componentsList";
 
 import { DateTime } from "luxon";
 

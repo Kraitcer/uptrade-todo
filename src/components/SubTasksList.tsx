@@ -1,4 +1,3 @@
-import React from "react";
 import {
   AddNotation as AddSubTask,
   NotationPad as SubTaskPad,
@@ -12,7 +11,6 @@ import {
   editSubTask,
   deleteSubTask,
   completeSubTask,
-  setSubTask,
 } from "../store/subTasksReducer";
 
 import { useSelector } from "react-redux";
@@ -22,7 +20,6 @@ interface Props {
 }
 
 const SubTasksList = ({ currentTaskID }: Props) => {
-  const allSubTasks = useSelector(selectAllSubTasks);
   const subTasksOfTheCurrentTask = useSelector(
     selectSubTasksOfTheCurrentTask(currentTaskID)
   );
@@ -46,9 +43,6 @@ const SubTasksList = ({ currentTaskID }: Props) => {
   const completeSubTaskOut = (id: string) => {
     store.dispatch(completeSubTask(id));
   };
-  // ==============================LOCAL STORAGE=============================
-
-  // useLocalStorage("subTasks", allSubTasks, store.dispatch);
 
   // ==============================RENDER FASE=============================
   return (
@@ -68,6 +62,7 @@ const SubTasksList = ({ currentTaskID }: Props) => {
           />
         ) : (
           <SubTaskPad
+            moveItem={() => {}}
             nameWidth={"350px"}
             children={""}
             width={"100%"}

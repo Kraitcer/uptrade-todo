@@ -89,12 +89,12 @@ const ProjectsList = () => {
   };
 
   // ==============================PROJECTS MOOVING ITEMS=====================
-  // const moveItem = (fromIndex: number, toIndex: number) => {
-  //   const updatedList = [...projects];
-  //   const [movedItem] = updatedList.splice(fromIndex, 1);
-  //   updatedList.splice(toIndex, 0, movedItem);
-  //   dispatch({ type: "SET_PROJECTS", payload: updatedList });
-  // };
+  const moveItem = (fromIndex: number, toIndex: number) => {
+    const updatedList = [...projects];
+    const [movedItem] = updatedList.splice(fromIndex, 1);
+    updatedList.splice(toIndex, 0, movedItem);
+    store.dispatch({ type: "SET_PROJECTS", payload: updatedList });
+  };
   // ==============================RENDER FASE===============================
   return (
     <Flex
@@ -144,6 +144,7 @@ const ProjectsList = () => {
                 />
               ) : (
                 <ProjectPad
+                  moveItem={moveItem}
                   nameWidth={"300px"}
                   children={
                     <TasksBadge
@@ -155,7 +156,6 @@ const ProjectsList = () => {
                   onDelete={deleteProjectOut}
                   key={project.id}
                   index={index}
-                  // moveItem={moveItem}
                   notationID={project.id}
                   notationName={project.projectName}
                   complited={project.complited}

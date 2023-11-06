@@ -1,5 +1,5 @@
 // Импортируйте compose из Redux
-import { createStore, combineReducers, compose } from "redux";
+import { createStore, combineReducers } from "redux";
 import { projectsReducer } from "./projectsReducer";
 import { tasksReducer } from "./tasksReducer";
 import { subTasksReducer } from "./subTasksReducer";
@@ -27,7 +27,7 @@ const rootReducer = combineReducers({
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 // Подключение к расширению Redux DevTools
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+// const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Создание Redux store с поддержкой Redux DevTools
 const store = createStore(persistedReducer);
