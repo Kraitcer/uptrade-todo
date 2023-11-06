@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 import { Flex, VStack, Heading } from "@chakra-ui/react";
 import {
   addProject,
@@ -46,6 +46,28 @@ const ProjectsList = () => {
       : renderFilter === "active"
       ? activeProjects
       : completeProjects;
+
+  const footerArray: {
+    type: string;
+    badge: number;
+    icon: ReactNode;
+  }[] = [
+    {
+      type: "all",
+      badge: projects.length,
+      icon: <AiOutlineUnorderedList size={22} />,
+    },
+    {
+      type: "active",
+      badge: activeProjects.length,
+      icon: <MdOutlineNotificationsActive size={22} />,
+    },
+    {
+      type: "completed",
+      badge: completeProjects.length,
+      icon: <MdDone size={22} />,
+    },
+  ];
   // =================================ADD=============================
   const addProjectToStore = (project: string) => {
     store.dispatch(addProject(project));
@@ -154,24 +176,15 @@ const ProjectsList = () => {
           alignItems={"center"}
           gap={3}
         >
-          <Footer
-            onClick={() => setRenderFilter("all")}
-            badge={projects.length}
-            icon={<AiOutlineUnorderedList size={22} />}
-            name={"all"}
-          />
-          <Footer
-            onClick={() => setRenderFilter("active")}
-            badge={activeProjects.length}
-            icon={<MdOutlineNotificationsActive size={22} />}
-            name={"active"}
-          />
-          <Footer
-            onClick={() => setRenderFilter("completed")}
-            badge={completeProjects.length}
-            icon={<MdDone size={22} />}
-            name={"completed"}
-          />
+          {footerArray.map((footer, index) => (
+            <Footer
+              key={index}
+              onClick={() => setRenderFilter(footer.type)}
+              badge={footer.badge}
+              icon={footer.icon}
+              name={footer.type}
+            />
+          ))}
         </Flex>
       </VStack>
     </Flex>
